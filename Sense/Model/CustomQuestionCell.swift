@@ -30,14 +30,20 @@ class CustomQuestionCell: UITableViewCell {
     @IBAction func QuestionButtonPressed(_ sender: Any) {
         
         if questionButton.titleLabel?.text == "?" {
-            questionButton.setTitle(String(Int(numberOne!.text!)! * Int(numberTwo!.text!)!), for: .normal)
             
-            print("yay")
+            let str_result = String(Int(numberOne!.text!)! * Int(numberTwo!.text!)!);
+            questionButton.setTitle(str_result, for: .normal);
+            let str = numberOne!.text! + " times " + numberTwo!.text! + " equals " + str_result;
+            
+            //Speak out str
+            //get ViewController to get func speechMessage()
+            if let vc = self.superview?.parentViewController as? ViewController {      vc.speechMessage(message:str);
+            }
+            print("yay");
         }
         else {
             questionButton.setTitle("?", for: .normal)
         }
         
     }
-    
 }
