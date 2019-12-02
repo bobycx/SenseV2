@@ -39,7 +39,7 @@ class CustomQuestionCell: UITableViewCell {
             //get ViewController to get func speechMessage()
             if let vc = self.superview?.parentViewController as? ViewController {      vc.speechMessage(message:str);
             }
-            print("yay");
+            print("yay"); 
         }
         else {
             questionButton.setTitle("?", for: .normal)
