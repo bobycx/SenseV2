@@ -122,14 +122,18 @@ class ViewController:UIViewController,UIScrollViewDelegate,UITableViewDelegate,U
     
     //To speak out a message
     func speechMessage(message:String){
+        //First, stop the current speaking
+        synth.stopSpeaking(at: AVSpeechBoundary.immediate);
+        
         if !message.isEmpty {
             do {
                 // 设置语音环境，保证能朗读出声音（特别是刚做过语音识别，这句话必加，不然没声音）
                 try audioSession.setCategory(AVAudioSession.Category.ambient)
             }catch let error as NSError{
+                print("!!!error.code!!!\n")
                 print(error.code)
             }
-            //需要转的文本 
+            //需要转的文本
             let utterance = AVSpeechUtterance.init(string: message)
             //设置语言，这里是English
             utterance.voice = AVSpeechSynthesisVoice.init(language: "us_EN")
