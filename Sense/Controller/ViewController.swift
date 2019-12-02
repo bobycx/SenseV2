@@ -9,7 +9,14 @@
 
 import UIKit
 
-class ViewController:UIViewController,UIScrollViewDelegate,UITableViewDelegate,UITableViewDataSource {
+import AVFoundation
+import MediaPlayer
+
+class ViewController:UIViewController,UIScrollViewDelegate,UITableViewDelegate,UITableViewDataSource, AVSpeechSynthesizerDelegate{
+    
+    //Define vars for voice eviroment
+    let synth = AVSpeechSynthesizer(); //TTS对象
+    let audioSession = AVAudioSession.sharedInstance(); //语音引擎
     
     var num1 : Int?
     var num2 : Int?
@@ -23,10 +30,12 @@ class ViewController:UIViewController,UIScrollViewDelegate,UITableViewDelegate,U
     
     override func viewDidLoad()
     {
-        super.viewDidLoad()
+        super.viewDidLoad();
+        
+        //Init voice eviroment
+        synth.delegate = self;
         
         dynamicScroll();
-        
     }
     
     
@@ -111,5 +120,34 @@ class ViewController:UIViewController,UIScrollViewDelegate,UITableViewDelegate,U
         //}
     }
     
+    //To speak out a message
+    func speechMessage(message:String){
+        if !message.isEmpty {
+            do {
+                // 设置语音环境，保证能朗读出声音（特别是刚做过语音识别，这句话必加，不然没声音）
+                try audioSession.setCategory(AVAudioSession.Category.ambient)
+            }catch let error as NSError{
+                print(error.code)
+            }
+            //需要转的文本
+            let utterance = AVSpeechUtterance.init(string: message)
+            //设置语言，这里是English
+            utterance.voice = AVSpeechSynthesisVoice.init(language: "us_EN")
+            //设置声音大小
+            utterance.volume = 1.0
+            //设置音频
+            utterance.pitchMultiplier = 1.1
+            //开始朗读
+            synth.speak(utterance)
+        }
+    }
+
+}
+
+//get ViewController for current View
+extension UIResponder {
+    public var parentViewController: UIViewController? {
+        return next as? UIViewController ?? next?.parentViewController
+    }
 }
 
