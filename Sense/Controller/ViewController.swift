@@ -129,7 +129,7 @@ class ViewController:UIViewController,UIScrollViewDelegate,UITableViewDelegate,U
             }catch let error as NSError{
                 print(error.code)
             }
-            //需要转的文本
+            //需要转的文本 
             let utterance = AVSpeechUtterance.init(string: message)
             //设置语言，这里是English
             utterance.voice = AVSpeechSynthesisVoice.init(language: "us_EN")
