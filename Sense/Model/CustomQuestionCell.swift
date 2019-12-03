@@ -39,6 +39,9 @@ class CustomQuestionCell: UITableViewCell {
             //get ViewController to get func speechMessage()
             if let vc = self.superview?.parentViewController as? ViewController {      vc.speechMessage(message:str);
             }
+            else{
+                print("error in customQuestionCell\n")
+            }
             print("yay"); 
         }
         else {
