@@ -162,9 +162,9 @@ class ViewController:UIViewController,UIScrollViewDelegate,UITableViewDelegate,U
         
         //Just for a demo
         if (indexPath.row == 5){
-            // Please see https://stackoverflow.com/questions/34438889/how-to-do-transforms-on-a-calayer
+            //Please see https://stackoverflow.com/questions/34438889/how-to-do-transforms-on-a-calayer
             
-            // Please see https://my.oschina.net/ozawa4865/blog/714906
+            //Please see https://my.oschina.net/ozawa4865/blog/714906
 
             let degrees = 90.0
             let radians = CGFloat(degrees * Double.pi / 180)
