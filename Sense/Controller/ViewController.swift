@@ -65,6 +65,8 @@ class ViewController:UIViewController,UIScrollViewDelegate,UITableViewDelegate,U
         return cell
     }
     
+    var gtView = UITableView();
+    
     let N_VIEWS:Int = 9; //Total number of the table views in the scroll view
     func dynamicScroll()
     {
@@ -78,6 +80,10 @@ class ViewController:UIViewController,UIScrollViewDelegate,UITableViewDelegate,U
         {
             var tView: UITableView;
             tView = UITableView();
+            if( i == 1)
+            {
+                gtView = tView;
+            }
             // 9 x the normal width
             tView.frame = CGRect(x: CGFloat(i-1) * tableW, y: tableY, width: tableW, height: tableH);
             
@@ -121,6 +127,7 @@ class ViewController:UIViewController,UIScrollViewDelegate,UITableViewDelegate,U
     }
     
     //To speak out a message
+    //Please see https://www.cnblogs.com/qian-gu-ling/archive/2017/03/22/6600993.html
     func speechMessage(message:String){
         //First, stop the current speaking
         synth.stopSpeaking(at: AVSpeechBoundary.immediate);
@@ -143,12 +150,55 @@ class ViewController:UIViewController,UIScrollViewDelegate,UITableViewDelegate,U
             utterance.pitchMultiplier = 1.1
             //开始朗读
             synth.speak(utterance)
+            
         }
     }
+    //
+    //
 
+    func tableView(_ tableView: UITableView,
+                   willDisplay cell: UITableViewCell,
+                   forRowAt indexPath: IndexPath) {
+        
+        //Just for a demo
+        if (indexPath.row == 5){
+            // Please see https://stackoverflow.com/questions/34438889/how-to-do-transforms-on-a-calayer
+            
+            // Please see https://my.oschina.net/ozawa4865/blog/714906
+
+            let degrees = 90.0
+            let radians = CGFloat(degrees * Double.pi / 180)
+            
+            // translate
+            var transform = CATransform3DMakeTranslation(190,610, 0)
+            
+            // rotate 设置旋转
+            transform = CATransform3DRotate(transform, radians, 0.0, 0.0, 1.0)
+            
+            // scale 设置大小缩放
+            transform = CATransform3DScale(transform, 0.1, 0.1, 0.1)
+            
+            // apply the transforms
+            cell.layer.transform = transform
+        
+            UIView.animate(withDuration: 2) { () -> Void in
+                // 动画实现将cell的layer复原
+                cell.layer.transform = CATransform3DIdentity
+            }
+            
+
+        // 最后复原cell的frame
+        cell.frame = CGRect(x: 0, y: cell.frame.origin.y, width: cell.frame.size.width, height: cell.frame.size.height);
+            
+        }
+    }
+    //
+    //
 }
 
 //get ViewController for current View
+//Please see https://stackoverflow.com/questions/1372977/given-a-view-how-do-i-get-its-viewcontroller
+
 extension UIResponder {
     public var parentViewController: UIViewController? {
         return next as? UIViewController ?? next?.parentViewController
