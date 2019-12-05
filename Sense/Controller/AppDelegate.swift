@@ -16,6 +16,22 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
 
     func application(_ application: UIApplication, didFinishLaunchingWithOptions launchOptions: [UIApplication.LaunchOptionsKey: Any]?) -> Bool {
         // Override point for customization after application launch.
+        /*
+        let tabBarController = UITabBarController()
+        let item = UITabBarItem()
+        let mainVC = LearnViewController()
+        
+        tabBarController.viewControllers = [mainVC]
+        
+        //configuration
+        tabBarController.selectedViewController = mainVC
+        
+        item.title = .none
+        item.image = UIImage(named: "Learn")
+        mainVC.tabBarItem = item
+        
+        //window!.rootViewController = tabBarController
+        */
         return true
     }
 

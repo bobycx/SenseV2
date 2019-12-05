@@ -7,6 +7,7 @@
 //
 
 import UIKit
+import ChameleonFramework
 
 class CustomQuestionCell: UITableViewCell {
 
@@ -19,7 +20,17 @@ class CustomQuestionCell: UITableViewCell {
     override func awakeFromNib() {
         super.awakeFromNib()
         // Initialization code
-        questionView.layer.cornerRadius = 15
+        //var colors : Dictionary<UIColor,UIColor> = [UIColor.flatYellow: UIColor.flatYellowDark, UIColor.flatPowderBlue: UIColor.flatPowderBlueDark]
+        
+        questionView.layer.cornerRadius = 30
+        questionView.backgroundColor = UIColor(gradientStyle:UIGradientStyle.leftToRight, withFrame:questionView.frame, andColors:[.flatPowderBlue, .flatPowderBlueDark])
+        
+        
+        questionView.layer.shadowColor = UIColor.flatPowderBlueDark.cgColor
+        questionView.layer.shadowOffset = CGSize(width: 1, height: 1)
+        questionView.layer.shadowOpacity = 0.7
+        questionView.layer.shadowRadius = 4.0
+        
     }
 
     override func setSelected(_ selected: Bool, animated: Bool) {
@@ -37,7 +48,7 @@ class CustomQuestionCell: UITableViewCell {
             
             //Speak out str
             //get ViewController to get func speechMessage()
-            if let vc = self.superview?.parentViewController as? ViewController {      vc.speechMessage(message:str);
+            if let vc = self.superview?.parentViewController as? LearnViewController {      vc.speechMessage(message:str);
             }
             else{
                 print("error in customQuestionCell\n")

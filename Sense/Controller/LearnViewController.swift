@@ -1,5 +1,5 @@
 //
-//  ViewController.swift
+//  LearnViewController.swift
 //  Sense
 //
 //  Created by Bob Yuan on 2019/10/31.
@@ -12,7 +12,7 @@ import UIKit
 import AVFoundation
 import MediaPlayer
 
-class ViewController:UIViewController,UIScrollViewDelegate,UITableViewDelegate,UITableViewDataSource, AVSpeechSynthesizerDelegate{
+class LearnViewController:UIViewController,UIScrollViewDelegate,UITableViewDelegate,UITableViewDataSource, AVSpeechSynthesizerDelegate{
     
     //Define vars for voice eviroment
     let synth = AVSpeechSynthesizer(); //TTS对象
@@ -21,8 +21,8 @@ class ViewController:UIViewController,UIScrollViewDelegate,UITableViewDelegate,U
     var num1 : Int?
     var num2 : Int?
     
-    @IBOutlet weak var dynamicScrollView: UIScrollView!
     
+    @IBOutlet weak var dynamicScrollView: UIScrollView!
     
     let testArray = ["1","2","3","4","5","6","7","8","9"]
     
@@ -35,21 +35,21 @@ class ViewController:UIViewController,UIScrollViewDelegate,UITableViewDelegate,U
         //Init voice eviroment
         synth.delegate = self;
         
-        dynamicScroll();
+        dynamicScroll()
     }
-    
-    
+
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         //To caculate the number of page of current table view
-        self.pageNumber = Int(tableView.frame.minX/self.dynamicScrollView.frame.size.width) + 1;
+        //self.pageNumber = Int(tableView.frame.minX/self.dynamicScrollView.frame.size.width) + 1;
         print("\n page#=\(pageNumber)")
+        //tableView.reloadData()
         
-        return (10 - pageNumber)
+        return (10 - self.dynamicScrollView.currentPage)
     }
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         //To caculate the number of page of current table view
-        self.pageNumber = Int(tableView.frame.minX/self.dynamicScrollView.frame.size.width) + 1;
+        //self.pageNumber = Int(tableView.frame.minX/self.dynamicScrollView.frame.size.width) + 1;
         print("\n page__#=\(pageNumber)")
         
         let cell = tableView.dequeueReusableCell(withIdentifier: "QuestionTVCell", for: indexPath) as! CustomQuestionCell
@@ -61,6 +61,8 @@ class ViewController:UIViewController,UIScrollViewDelegate,UITableViewDelegate,U
             cell.numberOne.text = String(pageNumber)
             cell.numberTwo.text = String(numberTwoNumber)
         }
+        
+        
         
         return cell
     }
@@ -76,31 +78,34 @@ class ViewController:UIViewController,UIScrollViewDelegate,UITableViewDelegate,U
         let tableY:CGFloat = 0;
         let totalCount:NSInteger = N_VIEWS;//# of table views；
         
-        for i in 1...N_VIEWS
-        {
-            var tView: UITableView;
-            tView = UITableView();
-            if( i == 1)
-            {
-                gtView = tView;
-            }
-            // 9 x the normal width
-            tView.frame = CGRect(x: CGFloat(i-1) * tableW, y: tableY, width: tableW, height: tableH);
-            
-            tView.delegate = self;
-            tView.dataSource = self;
-            tView.tableFooterView = UIView();
-            tView.backgroundColor = UIColor.clear;
-            tView.separatorStyle = .none;
-            tView.allowsSelection = false;
-            tView.rowHeight = UITableView.automaticDimension
-            tView.estimatedRowHeight = 120.0
-            tView.rowHeight = 80
-            tView.register(UINib(nibName: "QuestionCell", bundle: nil), forCellReuseIdentifier: "QuestionTVCell");
-            
-            dynamicScrollView.addSubview(tView);
-        }
         
+        
+        var tView: UITableView;
+        tView = UITableView();
+        /*
+        if( i == 1)
+        {
+            gtView = tView;
+        }
+        */
+        // 9 x the normal width
+        tView.frame = CGRect(x: CGFloat(0) * tableW, y: tableY, width: tableW, height: tableH);
+            
+        tView.delegate = self;
+        tView.dataSource = self;
+        tView.tableFooterView = UIView();
+        tView.backgroundColor = UIColor.clear;
+        tView.separatorStyle = .none;
+        tView.allowsSelection = false;
+        tView.rowHeight = UITableView.automaticDimension
+        tView.estimatedRowHeight = 120.0
+        tView.rowHeight = 85
+        tView.backgroundColor = .clear
+        tView.register(UINib(nibName: "QuestionCell", bundle: nil), forCellReuseIdentifier: "QuestionTVCell");
+            
+        dynamicScrollView.addSubview(tView);
+        
+    
         let contentW:CGFloat = tableW * CGFloat(totalCount);//這個表示整個ScrollView的長度；
         dynamicScrollView.contentSize = CGSize(width: contentW, height: 0);
         dynamicScrollView.isPagingEnabled = true;
@@ -108,15 +113,79 @@ class ViewController:UIViewController,UIScrollViewDelegate,UITableViewDelegate,U
         
     }
     
+    func scrollViewDidScroll(_ scrollView: UIScrollView) {
+        print("scrolled")
+        print(scrollView.currentPage)
+        //探测page是否变没变
+        if pageNumber == scrollView.currentPage {
+            pageNumber = scrollView.currentPage
+        }
+        else {
+            pageNumber = scrollView.currentPage
+            //("c")
+            print("current page \(scrollView.currentPage)")
+            print("changed")
+            // 防止创建多余的tableviews
+            if dynamicScrollView.subviews.count < scrollView.currentPage+2{
+                print("is empty page")
+                let tableW:CGFloat = self.dynamicScrollView.frame.size.width;
+                let tableH:CGFloat = self.dynamicScrollView.frame.size.height;
+                let tableY:CGFloat = 0;
+                let totalCount:NSInteger = N_VIEWS;//# of table views；
+                
+                var tView: UITableView;
+                tView = UITableView();
+                /*
+                 if( pageNumber == 1)
+                 {
+                 gtView = tView;
+                 }
+                 */
+                // 9 x the normal width
+                tView.frame = CGRect(x: CGFloat(scrollView.currentPage-1) * tableW, y: tableY, width: tableW, height: tableH);
+                
+                tView.delegate = self;
+                tView.dataSource = self;
+                tView.tableFooterView = UIView();
+                tView.backgroundColor = UIColor.clear;
+                tView.separatorStyle = .none;
+                tView.allowsSelection = false;
+                tView.rowHeight = UITableView.automaticDimension
+                tView.estimatedRowHeight = 120.0
+                tView.rowHeight = 85
+                tView.backgroundColor = .clear
+                tView.register(UINib(nibName: "QuestionCell", bundle: nil), forCellReuseIdentifier: "QuestionTVCell");
+                
+                dynamicScrollView.addSubview(tView)
+                print(scrollView.subviews)
+                
+                //let prevView = scrollView.subviews[scrollView.currentPage-2]
+                //prevView.removeFromSuperview()
+            }
+            else {
+                print("subviews: \(dynamicScrollView.subviews.count)")
+                print("tableview already exists")
+            }
+            
+            
+        }
+    }
+
+    
     func scrollViewDidEndDecelerating(_ scrollView: UIScrollView)
     {
         //Just for testing....
         //Might be used later.
         //currentPage presents the number of current table view
         
-        let currentPage:Int = Int(scrollView.contentOffset.x / scrollView.frame.size.width)
+        //if pageNumber == scrollView        // Do something with your page update
+        //print("scrollViewDidEndDecelerating: \(currentPage)")
         
-        print("scrollView Page: \(currentPage)");
+        
+        //print(pageNumber)
+        //let currentPage:Int = Int(scrollView.contentOffset.x / scrollView.frame.size.width)
+        //print("scrollView Page: \(currentPage)");
+        
         
         //if currentPage == 0 {
         //    self.scrollView.contentOffset = CGPoint(x: scrollView.frame.size.width * CGFloat(numberOfItems), y: scrollView.contentOffset.y)
@@ -160,7 +229,17 @@ class ViewController:UIViewController,UIScrollViewDelegate,UITableViewDelegate,U
                    willDisplay cell: UITableViewCell,
                    forRowAt indexPath: IndexPath) {
         
+        cell.alpha = 0
+        
+        UIView.animate(
+            withDuration: 1,
+            delay: 0.05 * Double(indexPath.row),
+            animations: {
+                cell.alpha = 1
+        })
+        
         //Just for a demo
+        /*
         if (indexPath.row == 5){
             //Please see https://stackoverflow.com/questions/34438889/how-to-do-transforms-on-a-calayer
             
@@ -191,6 +270,7 @@ class ViewController:UIViewController,UIScrollViewDelegate,UITableViewDelegate,U
         cell.frame = CGRect(x: 0, y: cell.frame.origin.y, width: cell.frame.size.width, height: cell.frame.size.height);
             
         }
+         */
     }
     //
     //
@@ -205,3 +285,8 @@ extension UIResponder {
     }
 }
 
+extension UIScrollView {
+    var currentPage: Int {
+        return Int((self.contentOffset.x + (0.5 * self.frame.size.width))/self.frame.width)+1
+    }
+}
