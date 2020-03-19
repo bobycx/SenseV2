@@ -11,37 +11,57 @@ import UIKit
 
 import AVFoundation
 import MediaPlayer
+import ChameleonFramework
+import Hero
 
 class LearnViewController:UIViewController,UIScrollViewDelegate,UITableViewDelegate,UITableViewDataSource, AVSpeechSynthesizerDelegate{
     
     //Define vars for voice eviroment
     let synth = AVSpeechSynthesizer(); //TTS对象
     let audioSession = AVAudioSession.sharedInstance(); //语音引擎
+    var learningMode = "" 
     
     var num1 : Int?
     var num2 : Int?
     
+    var guidedLearning : Bool?
     
     @IBOutlet weak var dynamicScrollView: UIScrollView!
+    @IBOutlet weak var backToChooseButton: UIButton!
     
+
     let testArray = ["1","2","3","4","5","6","7","8","9"]
     
     var pageNumber : Int = 1
     
     override func viewDidLoad()
     {
-        super.viewDidLoad();
-        
+        super.viewDidLoad()
+        backToChooseButton.layer.cornerRadius = 25
+
         //Init voice eviroment
         synth.delegate = self;
         
         dynamicScroll()
     }
-
+    
+    @IBAction func backToChoose(_ sender: UIButton) {
+        
+    }
+    
+    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
+        if segue.identifier == "backToChoose" {
+            let dest = segue.destination as! TabBarController
+            dest.hero.modalAnimationType = .selectBy(presenting: .zoomSlide(direction: .left), dismissing: .zoomSlide(direction: .right))
+            
+        }
+    }
+    
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         //To caculate the number of page of current table view
         //self.pageNumber = Int(tableView.frame.minX/self.dynamicScrollView.frame.size.width) + 1;
         print("\n page#=\(pageNumber)")
+        
         //tableView.reloadData()
         
         return (10 - self.dynamicScrollView.currentPage)

@@ -16,6 +16,11 @@
 		C67D9910236BA63C000B638F /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = C67D990E236BA63C000B638F /* Main.storyboard */; };
 		C67D9912236BA63E000B638F /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = C67D9911236BA63E000B638F /* Assets.xcassets */; };
 		C67D9915236BA63E000B638F /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = C67D9913236BA63E000B638F /* LaunchScreen.storyboard */; };
+		C694BAF32422FB420037EEC0 /* ChooseLearningModeVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = C694BAF22422FB420037EEC0 /* ChooseLearningModeVC.swift */; };
+		C694BAF62423C37F0037EEC0 /* ScaleSegue.swift in Sources */ = {isa = PBXBuildFile; fileRef = C694BAF52423C37F0037EEC0 /* ScaleSegue.swift */; };
+		C694BAF82423F7160037EEC0 /* GuidedLearningVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = C694BAF72423F7150037EEC0 /* GuidedLearningVC.swift */; };
+		C6B4471C23BD9C7500022C11 /* QuizViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = C6B4471B23BD9C7500022C11 /* QuizViewController.swift */; };
+		C6B4471E23BD9CCF00022C11 /* ListenViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = C6B4471D23BD9CCF00022C11 /* ListenViewController.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -31,6 +36,11 @@
 		C67D9911236BA63E000B638F /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		C67D9914236BA63E000B638F /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
 		C67D9916236BA63E000B638F /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		C694BAF22422FB420037EEC0 /* ChooseLearningModeVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ChooseLearningModeVC.swift; sourceTree = "<group>"; };
+		C694BAF52423C37F0037EEC0 /* ScaleSegue.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ScaleSegue.swift; sourceTree = "<group>"; };
+		C694BAF72423F7150037EEC0 /* GuidedLearningVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GuidedLearningVC.swift; sourceTree = "<group>"; };
+		C6B4471B23BD9C7500022C11 /* QuizViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = QuizViewController.swift; sourceTree = "<group>"; };
+		C6B4471D23BD9CCF00022C11 /* ListenViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ListenViewController.swift; sourceTree = "<group>"; };
 		E56DCB2AC1907AABCA945F0F /* Pods_Sense.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_Sense.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 /* End PBXFileReference section */
 
@@ -87,6 +97,10 @@
 				C67D990A236BA63C000B638F /* AppDelegate.swift */,
 				C67D990C236BA63C000B638F /* LearnViewController.swift */,
 				C61F610123987B3D007F5035 /* TabBarController.swift */,
+				C6B4471B23BD9C7500022C11 /* QuizViewController.swift */,
+				C6B4471D23BD9CCF00022C11 /* ListenViewController.swift */,
+				C694BAF22422FB420037EEC0 /* ChooseLearningModeVC.swift */,
+				C694BAF72423F7150037EEC0 /* GuidedLearningVC.swift */,
 			);
 			path = Controller;
 			sourceTree = "<group>";
@@ -112,6 +126,7 @@
 		C67D9909236BA63C000B638F /* Sense */ = {
 			isa = PBXGroup;
 			children = (
+				C694BAF42423C34C0037EEC0 /* Custom Segues */,
 				C61F60FC2384B0E1007F5035 /* Controller */,
 				C61F60FB2384B0DB007F5035 /* View */,
 				C61F60FA2384B0CD007F5035 /* Model */,
@@ -119,6 +134,14 @@
 				C67D9916236BA63E000B638F /* Info.plist */,
 			);
 			path = Sense;
+			sourceTree = "<group>";
+		};
+		C694BAF42423C34C0037EEC0 /* Custom Segues */ = {
+			isa = PBXGroup;
+			children = (
+				C694BAF52423C37F0037EEC0 /* ScaleSegue.swift */,
+			);
+			path = "Custom Segues";
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -217,10 +240,14 @@
 			inputPaths = (
 				"${SRCROOT}/Pods/Target Support Files/Pods-Sense/Pods-Sense-frameworks.sh",
 				"${BUILT_PRODUCTS_DIR}/ChameleonFramework/ChameleonFramework.framework",
+				"${BUILT_PRODUCTS_DIR}/Hero/Hero.framework",
+				"${BUILT_PRODUCTS_DIR}/VBRRollingPit/VBRRollingPit.framework",
 			);
 			name = "[CP] Embed Pods Frameworks";
 			outputPaths = (
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/ChameleonFramework.framework",
+				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/Hero.framework",
+				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/VBRRollingPit.framework",
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 			shellPath = /bin/sh;
@@ -235,9 +262,14 @@
 			buildActionMask = 2147483647;
 			files = (
 				C61F60FF2384B12E007F5035 /* CustomQuestionCell.swift in Sources */,
+				C6B4471C23BD9C7500022C11 /* QuizViewController.swift in Sources */,
+				C694BAF82423F7160037EEC0 /* GuidedLearningVC.swift in Sources */,
+				C694BAF32422FB420037EEC0 /* ChooseLearningModeVC.swift in Sources */,
 				C61F610223987B3D007F5035 /* TabBarController.swift in Sources */,
+				C694BAF62423C37F0037EEC0 /* ScaleSegue.swift in Sources */,
 				C67D990D236BA63C000B638F /* LearnViewController.swift in Sources */,
 				C67D990B236BA63C000B638F /* AppDelegate.swift in Sources */,
+				C6B4471E23BD9CCF00022C11 /* ListenViewController.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
