@@ -23,6 +23,7 @@ class GuidedLearningVC: UIViewController {
         let str_result = String(Int(firstNum!.text!)! * Int(secondNum!.text!)!);
         ansButton.setTitle(str_result, for: .normal);
         // wait for user to dismiss: tap any open area
+        print("hi")
         UIView.animate(withDuration: 2.0, animations: { () -> Void in
             self.cellView.center = CGPoint(x: CGFloat(self.view.frame.width/2), y: CGFloat(20 + (self.cellView.frame.height)))
         })
