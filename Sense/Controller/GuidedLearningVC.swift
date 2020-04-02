@@ -51,6 +51,7 @@ class GuidedLearningVC: UIViewController {
             print(self.latestYCor)
             if self.cellLevel > (10-self.level) {
                 self.enterNewLevel()
+                //source
             }
             else {
                 self.createNewView()
