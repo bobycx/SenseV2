@@ -11,6 +11,7 @@
 		C61F60FF2384B12E007F5035 /* CustomQuestionCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = C61F60FD2384B12E007F5035 /* CustomQuestionCell.swift */; };
 		C61F61002384B12E007F5035 /* QuestionCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = C61F60FE2384B12E007F5035 /* QuestionCell.xib */; };
 		C61F610223987B3D007F5035 /* TabBarController.swift in Sources */ = {isa = PBXBuildFile; fileRef = C61F610123987B3D007F5035 /* TabBarController.swift */; };
+		C624099D242EAA4100D41FFC /* PulseAnimation.swift in Sources */ = {isa = PBXBuildFile; fileRef = C624099C242EAA4100D41FFC /* PulseAnimation.swift */; };
 		C67D990B236BA63C000B638F /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = C67D990A236BA63C000B638F /* AppDelegate.swift */; };
 		C67D990D236BA63C000B638F /* LearnViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = C67D990C236BA63C000B638F /* LearnViewController.swift */; };
 		C67D9910236BA63C000B638F /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = C67D990E236BA63C000B638F /* Main.storyboard */; };
@@ -19,6 +20,10 @@
 		C694BAF32422FB420037EEC0 /* ChooseLearningModeVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = C694BAF22422FB420037EEC0 /* ChooseLearningModeVC.swift */; };
 		C694BAF62423C37F0037EEC0 /* ScaleSegue.swift in Sources */ = {isa = PBXBuildFile; fileRef = C694BAF52423C37F0037EEC0 /* ScaleSegue.swift */; };
 		C694BAF82423F7160037EEC0 /* GuidedLearningVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = C694BAF72423F7150037EEC0 /* GuidedLearningVC.swift */; };
+		C694BB0A24246C270037EEC0 /* TV.xib in Resources */ = {isa = PBXBuildFile; fileRef = C694BB0924246C270037EEC0 /* TV.xib */; };
+		C694BB0C24246C3C0037EEC0 /* TV.swift in Sources */ = {isa = PBXBuildFile; fileRef = C694BB0B24246C3C0037EEC0 /* TV.swift */; };
+		C694BB0E24246D9F0037EEC0 /* CellView.xib in Resources */ = {isa = PBXBuildFile; fileRef = C694BB0D24246D9F0037EEC0 /* CellView.xib */; };
+		C694BB1024246DF10037EEC0 /* CellView.swift in Sources */ = {isa = PBXBuildFile; fileRef = C694BB0F24246DF10037EEC0 /* CellView.swift */; };
 		C6B4471C23BD9C7500022C11 /* QuizViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = C6B4471B23BD9C7500022C11 /* QuizViewController.swift */; };
 		C6B4471E23BD9CCF00022C11 /* ListenViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = C6B4471D23BD9CCF00022C11 /* ListenViewController.swift */; };
 /* End PBXBuildFile section */
@@ -29,6 +34,7 @@
 		C61F60FD2384B12E007F5035 /* CustomQuestionCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CustomQuestionCell.swift; sourceTree = "<group>"; };
 		C61F60FE2384B12E007F5035 /* QuestionCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = QuestionCell.xib; sourceTree = "<group>"; };
 		C61F610123987B3D007F5035 /* TabBarController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TabBarController.swift; sourceTree = "<group>"; };
+		C624099C242EAA4100D41FFC /* PulseAnimation.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PulseAnimation.swift; sourceTree = "<group>"; };
 		C67D9907236BA63C000B638F /* Sense.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Sense.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		C67D990A236BA63C000B638F /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		C67D990C236BA63C000B638F /* LearnViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LearnViewController.swift; sourceTree = "<group>"; };
@@ -39,6 +45,10 @@
 		C694BAF22422FB420037EEC0 /* ChooseLearningModeVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ChooseLearningModeVC.swift; sourceTree = "<group>"; };
 		C694BAF52423C37F0037EEC0 /* ScaleSegue.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ScaleSegue.swift; sourceTree = "<group>"; };
 		C694BAF72423F7150037EEC0 /* GuidedLearningVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GuidedLearningVC.swift; sourceTree = "<group>"; };
+		C694BB0924246C270037EEC0 /* TV.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = TV.xib; sourceTree = "<group>"; };
+		C694BB0B24246C3C0037EEC0 /* TV.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TV.swift; sourceTree = "<group>"; };
+		C694BB0D24246D9F0037EEC0 /* CellView.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = CellView.xib; sourceTree = "<group>"; };
+		C694BB0F24246DF10037EEC0 /* CellView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CellView.swift; sourceTree = "<group>"; };
 		C6B4471B23BD9C7500022C11 /* QuizViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = QuizViewController.swift; sourceTree = "<group>"; };
 		C6B4471D23BD9CCF00022C11 /* ListenViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ListenViewController.swift; sourceTree = "<group>"; };
 		E56DCB2AC1907AABCA945F0F /* Pods_Sense.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_Sense.framework; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -78,6 +88,11 @@
 			children = (
 				C61F60FD2384B12E007F5035 /* CustomQuestionCell.swift */,
 				C61F60FE2384B12E007F5035 /* QuestionCell.xib */,
+				C694BB0924246C270037EEC0 /* TV.xib */,
+				C694BB0B24246C3C0037EEC0 /* TV.swift */,
+				C694BB0D24246D9F0037EEC0 /* CellView.xib */,
+				C694BB0F24246DF10037EEC0 /* CellView.swift */,
+				C624099C242EAA4100D41FFC /* PulseAnimation.swift */,
 			);
 			path = Model;
 			sourceTree = "<group>";
@@ -206,7 +221,9 @@
 			files = (
 				C67D9915236BA63E000B638F /* LaunchScreen.storyboard in Resources */,
 				C61F61002384B12E007F5035 /* QuestionCell.xib in Resources */,
+				C694BB0A24246C270037EEC0 /* TV.xib in Resources */,
 				C67D9912236BA63E000B638F /* Assets.xcassets in Resources */,
+				C694BB0E24246D9F0037EEC0 /* CellView.xib in Resources */,
 				C67D9910236BA63C000B638F /* Main.storyboard in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -261,10 +278,13 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				C694BB1024246DF10037EEC0 /* CellView.swift in Sources */,
 				C61F60FF2384B12E007F5035 /* CustomQuestionCell.swift in Sources */,
 				C6B4471C23BD9C7500022C11 /* QuizViewController.swift in Sources */,
 				C694BAF82423F7160037EEC0 /* GuidedLearningVC.swift in Sources */,
+				C624099D242EAA4100D41FFC /* PulseAnimation.swift in Sources */,
 				C694BAF32422FB420037EEC0 /* ChooseLearningModeVC.swift in Sources */,
+				C694BB0C24246C3C0037EEC0 /* TV.swift in Sources */,
 				C61F610223987B3D007F5035 /* TabBarController.swift in Sources */,
 				C694BAF62423C37F0037EEC0 /* ScaleSegue.swift in Sources */,
 				C67D990D236BA63C000B638F /* LearnViewController.swift in Sources */,
