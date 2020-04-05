@@ -10,9 +10,17 @@
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
     </dependencies>
     <objects>
-        <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner"/>
+        <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner" customClass="CellView" customModule="Sense" customModuleProvider="target">
+            <connections>
+                <outlet property="a" destination="a9d-KS-EHb" id="XhV-jI-IYh"/>
+                <outlet property="ansButton" destination="a9d-KS-EHb" id="mUm-MZ-9KL"/>
+                <outlet property="cellView" destination="UbI-ba-W7w" id="U0b-7c-lvd"/>
+                <outlet property="firstLabel" destination="AAW-hE-h96" id="M71-k0-mEO"/>
+                <outlet property="secondLabel" destination="6gT-sr-g2a" id="4hq-8c-YyQ"/>
+            </connections>
+        </placeholder>
         <placeholder placeholderIdentifier="IBFirstResponder" id="-2" customClass="UIResponder"/>
-        <view contentMode="scaleToFill" id="iN0-l3-epB" customClass="CellView" customModule="Sense" customModuleProvider="target">
+        <view contentMode="scaleToFill" id="iN0-l3-epB">
             <rect key="frame" x="0.0" y="0.0" width="370" height="70"/>
             <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
             <subviews>
