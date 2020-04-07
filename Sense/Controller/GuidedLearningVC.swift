@@ -6,6 +6,9 @@
 //  Copyright © 2020 Bob Yuan. All rights reserved.
 //
 
+// Main logic without changes, just for animation function
+// By Tim on April 5th, 2020
+
 import UIKit
 import ChameleonFramework
 
@@ -28,6 +31,9 @@ class GuidedLearningVC: UIViewController {
         let view = UIScrollView(frame: .zero)
         view.backgroundColor = .white
         view.frame = self.view.bounds
+        //Just for test
+        view.frame.size.height = 300
+        
         view.contentSize = normalViewSize
         //view.contentOffset = CGPoint(x:0, y:100)
         return view
@@ -35,47 +41,95 @@ class GuidedLearningVC: UIViewController {
     
     
     @objc func revealAnswer(sender: UIButton) {
-        currentView!.frame.size.height = 70
+
         let str_result = String(Int(currentView!.firstLabel!.text!)! * Int(currentView!.secondLabel!.text!)!);
+
         currentView!.ansButton.setTitle(str_result, for: .normal);
         currentView!.ansButton.isEnabled = false
+
         // wait for user to dismiss: tap any open area
         print("hi")
-        
-        UIView.animate(withDuration: 0.2, animations: { () -> Void in
+
+
+        // Animating....
+        UIView.animate(withDuration: 4, animations: {
+            // Height
+            self.currentView!.frame.size.height = 70
+            // Center
             self.currentView!.center = CGPoint(x: CGFloat(self.view.frame.width/2), y: CGFloat(CGFloat(self.cellLevel)*(self.spacing + (self.currentView!.frame.height))))
             
+            if ( self.currentView!.center.y >= self.scrollview.frame.maxY){
+                self.currentView!.center.y = self.scrollview.frame.maxY
+            }
+            // update layout right now if any changes
+            self.view.layoutIfNeeded() // !!! important !!!
         }, completion: { finished in
-            self.latestYCor = CGFloat(CGFloat(self.cellLevel)*(self.spacing + (self.currentView!.frame.height)))
-            self.cellLevel += 1
-            print(self.latestYCor)
-            if self.cellLevel > (10-self.level) {
-                self.enterNewLevel()
-                //source
-            }
-            else {
-                self.createNewView()
-            }
+            UIView.animate(withDuration: 4, animations: { () -> Void in
+                //self.currentView!.center = CGPoint(x: CGFloat(self.view.frame.width/2), y: CGFloat(CGFloat(self.cellLevel)*(self.spacing + (self.currentView!.frame.height))))
+                UIView.performWithoutAnimation {
+                    //self.currentView!.center.y = c_y //CGPoint(x: c_x, y: c_y )
+                    
+                }
+                
+            }, completion: { finished in
+                
+                self.latestYCor = CGFloat(CGFloat(self.cellLevel)*(self.spacing + (self.currentView!.frame.height)))
+                self.cellLevel += 1
+                print(self.latestYCor)
+                
+                self.currentView!.center = CGPoint(x: CGFloat(self.view.frame.width/2), y: CGFloat(CGFloat(self.cellLevel)*(self.spacing + (self.currentView!.frame.height))))
+                
+                // CellView doesnot belong to scrollview at the beginning
+                self.currentView!.removeFromSuperview()
+                self.scrollview.addSubview(self.currentView!)
+                
+                
+                if self.cellLevel > (10-self.level) {
+                    self.enterNewLevel()
+                    //source
+                }
+                else {
+                    //temp commented
+                    self.createNewView()
+                }
+            })
+            
         })
-        
-        
+  
     }
     
     func createNewView() {
+        
         if (Int(self.view.frame.height - latestYCor)) < 90 && timesOffsetChanged != 1 {
             let scrollPoint = CGPoint(x: 0.0, y: 300.0)
             scrollview.contentSize = contentViewSize
             scrollview.setContentOffset(scrollPoint, animated: false)
             timesOffsetChanged += 1
         }
-        if let tempCellView = Bundle.main.loadNibNamed("CellView", owner: self, options: nil)?.first as? CellView {
-            UIView.transition(with: self.view, duration: 0.5, options: [.transitionCrossDissolve], animations: {
-                self.scrollview.addSubview(tempCellView)
+        //Just for test
+        let tempCellView = CellView(frame: CGRect(x:0, y:0, width:300, height:self.view.frame.height-60))
+        
+        //let tempCellView = CellView(frame: CGRect(x:0, y:0, width:300, height:10))
+
+        //let tempCellView = CellView(frame: self.view.bounds)
+ 
+        UIView.transition(with: self.view, duration: 0.5, options: [.transitionCrossDissolve], animations: {
+                //self.scrollview.addSubview(tempCellView)
             }, completion: nil)
-            tempCellView.tag = Int(String(level)+String(cellLevel))!
-            cellViewInitialization(CellView: tempCellView, cl: String(cellLevel), ll: String(level))
-            currentView = tempCellView
-        }
+            
+        tempCellView.tag = Int(String(level)+String(cellLevel))!
+        
+        cellViewInitialization(CellView: tempCellView, cl: String(cellLevel), ll: String(level))
+        
+        // !!!
+        view.addSubview(tempCellView)
+        
+        currentView = tempCellView
+        
+        // update timely
+        self.view.layoutIfNeeded()
+        
+
     }
     
     func enterNewLevel() {
@@ -84,8 +138,7 @@ class GuidedLearningVC: UIViewController {
 
     override func viewDidLoad() {
         super.viewDidLoad()
-        //cellViewInitialization()
-        //mainFlow(numOfViews: 5)
+
         view.addSubview(scrollview)
         createNewView()
         
@@ -95,8 +148,8 @@ class GuidedLearningVC: UIViewController {
     
     func cellViewInitialization(CellView: CellView,cl: String, ll: String) {
         print(timesOffsetChanged)
-        //cellViewConstraints(CellView: CellView)
-        CellView.cellView.backgroundColor = .clear
+
+        //CellView.cellView.backgroundColor = .clear
         CellView.center = CGPoint(x: self.view.frame.size.width  / 2, y: (self.view.frame.size.height / 2)*(timesOffsetChanged+1) - (timesOffsetChanged*spacing))
         
         /*
@@ -108,6 +161,7 @@ class GuidedLearningVC: UIViewController {
         }
         */
         CellView.ansButton.addTarget(self, action: #selector(GuidedLearningVC.revealAnswer(sender:)), for: .touchUpInside)
+     
         CellView.layer.cornerRadius = 30
         CellView.backgroundColor = UIColor(gradientStyle:UIGradientStyle.leftToRight, withFrame:CellView.frame, andColors:[.flatPowderBlue, .flatPowderBlueDark])
         
@@ -124,7 +178,10 @@ class GuidedLearningVC: UIViewController {
         CellView.ansButton.backgroundColor = #colorLiteral(red: 1, green: 0.4932718873, blue: 0.4739984274, alpha: 1)
         CellView.ansButton.layer.cornerRadius = 20
         
-        cellViewConstraints(CellView: CellView)
+        // update timely
+        self.view.layoutIfNeeded()
+
+        //cellViewConstraints(CellView: CellView)
         
     }
     
