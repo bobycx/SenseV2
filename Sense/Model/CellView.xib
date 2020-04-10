@@ -23,11 +23,11 @@
             <rect key="frame" x="0.0" y="0.0" width="370" height="70"/>
             <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
             <subviews>
-                <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="center" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="multiply24" translatesAutoresizingMaskIntoConstraints="NO" id="5Cq-z2-XMt">
-                    <rect key="frame" x="90.5" y="27" width="24" height="16"/>
+                <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="smallply2" highlighted="YES" adjustsImageSizeForAccessibilityContentSizeCategory="YES" translatesAutoresizingMaskIntoConstraints="NO" id="5Cq-z2-XMt">
+                    <rect key="frame" x="90.5" y="23" width="24" height="24"/>
                     <constraints>
-                        <constraint firstAttribute="height" constant="16" id="esg-Y4-lo6"/>
-                        <constraint firstAttribute="width" constant="24" id="jbw-f8-gFT"/>
+                        <constraint firstAttribute="width" constant="24" id="Yrh-dP-maw"/>
+                        <constraint firstAttribute="height" constant="24" id="cNN-wY-CCk"/>
                     </constraints>
                 </imageView>
                 <label opaque="NO" userInteractionEnabled="NO" contentMode="center" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="AAW-hE-h96">
@@ -128,6 +128,6 @@
         </view>
     </objects>
     <resources>
-        <image name="multiply24" width="24" height="24"/>
+        <image name="smallply2" width="24" height="24"/>
     </resources>
 </document>
