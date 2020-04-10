@@ -7,7 +7,6 @@
 //
 
 import UIKit
-import Hero
 
 class ChooseLearningModeVC: UIViewController {
     
@@ -26,7 +25,7 @@ class ChooseLearningModeVC: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         configurePopupView()
-        popupView.hero.modifiers = [.translate(y:100)]
+        //popupView.hero.modifiers = [.translate(y:100)]
     }
     func configurePopupView() {
         popupView.layer.cornerRadius = 10

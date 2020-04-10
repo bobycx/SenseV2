@@ -14,11 +14,19 @@ import ChameleonFramework
 
 class GuidedLearningVC: UIViewController {
     
+    @IBOutlet weak var congratsView: UIView!
+    @IBOutlet weak var reviewButton: UIButton!
+    @IBOutlet weak var nextButton: UIButton!
+    @IBOutlet weak var backButton: UIButton!
+    @IBOutlet weak var proceedButton: UIButton!
+    @IBOutlet weak var levelTextLabel: UILabel!
+    @IBOutlet weak var blurEffect: UIVisualEffectView!
+    
     var level: Int = 1
     var cellLevel: Int = 1
     var currentView: CellView?
     var latestYCor: CGFloat = 0
-    let spacing: CGFloat = 20
+    var spacing: CGFloat = 20
     var timesOffsetChanged: CGFloat = 0
     
     var snap : UISnapBehavior!
@@ -27,74 +35,89 @@ class GuidedLearningVC: UIViewController {
     lazy var contentViewSize = CGSize(width: self.view.frame.width, height: self.view.frame.height + 400)
     lazy var normalViewSize = CGSize(width: self.view.frame.width, height: self.view.frame.height)
     
+    var pulsatingLayer: CAShapeLayer!
+    
     lazy var scrollview: UIScrollView = {
         let view = UIScrollView(frame: .zero)
         view.backgroundColor = .white
         view.frame = self.view.bounds
         //Just for test
-        view.frame.size.height = 300
+        //view.frame.size.height = 300
         
         view.contentSize = normalViewSize
         //view.contentOffset = CGPoint(x:0, y:100)
         return view
     }()
     
-    
+    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
+        if segue.identifier == "backToMain" {
+            let dest = segue.destination as! TabBarController
+            dest.hero.modalAnimationType = .selectBy(presenting: .slide(direction: .down), dismissing: .slide(direction: .down))
+            
+        }
+    }
+ 
     @objc func revealAnswer(sender: UIButton) {
-
+        
+        print(cellLevel)
+        print(level)
         let str_result = String(Int(currentView!.firstLabel!.text!)! * Int(currentView!.secondLabel!.text!)!);
-
+        
         currentView!.ansButton.setTitle(str_result, for: .normal);
         currentView!.ansButton.isEnabled = false
-
-        // wait for user to dismiss: tap any open area
-        print("hi")
-
-
-        // Animating....
-        UIView.animate(withDuration: 4, animations: {
-            // Height
-            self.currentView!.frame.size.height = 70
-            // Center
-            self.currentView!.center = CGPoint(x: CGFloat(self.view.frame.width/2), y: CGFloat(CGFloat(self.cellLevel)*(self.spacing + (self.currentView!.frame.height))))
-            
-            if ( self.currentView!.center.y >= self.scrollview.frame.maxY){
-                self.currentView!.center.y = self.scrollview.frame.maxY
-            }
-            // update layout right now if any changes
-            self.view.layoutIfNeeded() // !!! important !!!
-        }, completion: { finished in
-            UIView.animate(withDuration: 4, animations: { () -> Void in
-                //self.currentView!.center = CGPoint(x: CGFloat(self.view.frame.width/2), y: CGFloat(CGFloat(self.cellLevel)*(self.spacing + (self.currentView!.frame.height))))
-                UIView.performWithoutAnimation {
-                    //self.currentView!.center.y = c_y //CGPoint(x: c_x, y: c_y )
-                    
-                }
+        currentView!.ansButton.titleLabel?.textColor = #colorLiteral(red: 0, green: 0, blue: 0, alpha: 1)
+        
+        pulsatingLayerConfig(parentView: currentView!.ansButton)
+        
+        DispatchQueue.main.asyncAfter(deadline: .now() + 0) {
+            // wait for user to dismiss: tap any open area
+            print("hi")
+            // Animating....
+            UIView.animate(withDuration: 0.5, animations: {
+                // Height
+                self.currentView!.frame.size.height = 70
+                // Center
+                self.currentView!.center = CGPoint(x: CGFloat(self.view.frame.width/2), y: CGFloat(CGFloat(self.cellLevel-self.level+1)*(self.spacing + (self.currentView!.frame.height))))
                 
+                
+                // update layout right now if any changes
+                self.view.layoutIfNeeded() // !!! important !!!
             }, completion: { finished in
+                UIView.animate(withDuration: 0.5, animations: { () -> Void in
+                    //self.currentView!.center = CGPoint(x: CGFloat(self.view.frame.width/2), y: CGFloat(CGFloat(self.cellLevel)*(self.spacing + (self.currentView!.frame.height))))
+                    UIView.performWithoutAnimation {
+                        //self.currentView!.center.y = c_y //CGPoint(x: c_x, y: c_y )
+                        
+                    }
+                    
+                }, completion: { finished in
+                    
+                    self.latestYCor = CGFloat(CGFloat(self.cellLevel)*(self.spacing + (self.currentView!.frame.height)))
+                    self.cellLevel += 1
+                    print(self.latestYCor)
+                    
+                    
+                    
+                    // CellView doesnot belong to scrollview at the beginning
+                    self.currentView!.removeFromSuperview()
+                    self.scrollview.addSubview(self.currentView!)
+                    
+                    
+                    if self.cellLevel > 9 {
+                        print("cellLevel: \(self.cellLevel), level: \(self.level)")
+                        self.enterNewLevel()
+                        //source
+                    }
+                    else {
+                        //temp commented
+                        self.createNewView()
+                    }
+                })
                 
-                self.latestYCor = CGFloat(CGFloat(self.cellLevel)*(self.spacing + (self.currentView!.frame.height)))
-                self.cellLevel += 1
-                print(self.latestYCor)
-                
-                self.currentView!.center = CGPoint(x: CGFloat(self.view.frame.width/2), y: CGFloat(CGFloat(self.cellLevel)*(self.spacing + (self.currentView!.frame.height))))
-                
-                // CellView doesnot belong to scrollview at the beginning
-                self.currentView!.removeFromSuperview()
-                self.scrollview.addSubview(self.currentView!)
-                
-                
-                if self.cellLevel > (10-self.level) {
-                    self.enterNewLevel()
-                    //source
-                }
-                else {
-                    //temp commented
-                    self.createNewView()
-                }
             })
-            
-        })
+        }
+
+        
   
     }
     
@@ -107,7 +130,7 @@ class GuidedLearningVC: UIViewController {
             timesOffsetChanged += 1
         }
         //Just for test
-        let tempCellView = CellView(frame: CGRect(x:0, y:0, width:300, height:self.view.frame.height-60))
+        let tempCellView = CellView(frame: CGRect(x:0, y:0, width:self.view.frame.width - 50, height:self.view.frame.height-80))
         
         //let tempCellView = CellView(frame: CGRect(x:0, y:0, width:300, height:10))
 
@@ -131,17 +154,96 @@ class GuidedLearningVC: UIViewController {
         
 
     }
+    @IBAction func proceedButtonPressed(_ sender: UIButton) {
+        proceedButton.isHidden = true
+        for view in scrollview.subviews {
+            view.removeFromSuperview()
+        }
+        level += 1
+        cellLevel = level
+        timesOffsetChanged = 0
+        latestYCor = 0
+        createNewView()
+    }
+    @IBAction func nextLevelButtonPressed(_ sender: UIButton) {
+        congratsView.isHidden = true
+        blurEffect.isHidden = true
+        for view in scrollview.subviews {
+            view.removeFromSuperview()
+        }
+        level += 1
+        cellLevel = level
+        timesOffsetChanged = 0
+        latestYCor = 0
+        createNewView()
+    }
     
-    func enterNewLevel() {
+    @IBAction func reviewButtonPressed(_ sender: UIButton) {
+        self.view.bringSubviewToFront(self.proceedButton)
+        UIView.animate(withDuration: 2, animations: {
+            self.congratsView.isHidden = true
+            self.proceedButton.isHidden = false
+            self.blurEffect.isHidden = true
+            
+        })
         
     }
-
+    
+    func enterNewLevel() {
+        print("level complete")
+        levelTextLabel.text = "You've completed level \(level)!"
+        blurEffect.isHidden = false
+        self.view.bringSubviewToFront(blurEffect)
+        self.view.bringSubviewToFront(congratsView)
+        congratsView.isHidden = false
+        self.view.layoutIfNeeded()
+        print(scrollview.subviews)
+    }
+    
+    func configureCongrats() {
+        congratsView.isHidden = true
+        reviewButton.layer.cornerRadius = 15
+        nextButton.layer.cornerRadius = 15
+        congratsView.layer.cornerRadius = 5
+        shadow(view: congratsView)
+        
+    }
+    
+    func shadow(view: UIView) {
+        view.layer.shadowColor = #colorLiteral(red: 0, green: 0, blue: 0, alpha: 1)
+        view.layer.shadowOffset = CGSize(width: 5, height: 5)
+        view.layer.shadowRadius = 5
+        view.layer.shadowOpacity = 0.3
+        view.isHidden = true
+    }
+    
+    
+    func pulsatingLayerConfig(parentView: UIView) {
+        let circularPath = UIBezierPath(arcCenter: .zero, radius: 100, startAngle: 0, endAngle: 2 * CGFloat.pi, clockwise: true)
+        pulsatingLayer = CAShapeLayer()
+        pulsatingLayer.path = circularPath.cgPath
+        pulsatingLayer.strokeColor = #colorLiteral(red: 0.9995340705, green: 0.988355577, blue: 0.4726552367, alpha: 1)
+        pulsatingLayer.fillColor = UIColor.yellow.cgColor
+        pulsatingLayer.lineCap = CAShapeLayerLineCap.round
+        pulsatingLayer.position = parentView.center
+        parentView.layer.addSublayer(pulsatingLayer)
+    }
+    
     override func viewDidLoad() {
         super.viewDidLoad()
-
+        
+        configureCongrats()
         view.addSubview(scrollview)
         createNewView()
-        
+        backButton.layer.cornerRadius = 25
+        self.view.bringSubviewToFront(backButton)
+        backButton.layer.zPosition = .greatestFiniteMagnitude
+        //shadow(view: backButton)
+        proceedButton.isHidden = true
+        proceedButton.layer.cornerRadius = 25
+        shadow(view: proceedButton)
+        blurEffect.isHidden = true
+        self.view.bringSubviewToFront(blurEffect)
         print("GL")
     }
     
@@ -176,7 +278,7 @@ class GuidedLearningVC: UIViewController {
         CellView.secondLabel.text = cl
         
         CellView.ansButton.backgroundColor = #colorLiteral(red: 1, green: 0.4932718873, blue: 0.4739984274, alpha: 1)
-        CellView.ansButton.layer.cornerRadius = 20
+        CellView.ansButton.layer.cornerRadius = 10
         
         // update timely
         self.view.layoutIfNeeded()

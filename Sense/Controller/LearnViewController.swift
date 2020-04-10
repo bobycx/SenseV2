@@ -52,7 +52,7 @@ class LearnViewController:UIViewController,UIScrollViewDelegate,UITableViewDeleg
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
         if segue.identifier == "backToChoose" {
             let dest = segue.destination as! TabBarController
-            dest.hero.modalAnimationType = .selectBy(presenting: .zoomSlide(direction: .left), dismissing: .zoomSlide(direction: .right))
+            dest.hero.modalAnimationType = .selectBy(presenting: .slide(direction: .down), dismissing: .slide(direction: .down))
             
         }
     }
