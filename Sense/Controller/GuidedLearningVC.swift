@@ -278,7 +278,7 @@ class GuidedLearningVC: UIViewController {
         CellView.secondLabel.text = cl
         
         CellView.ansButton.backgroundColor = #colorLiteral(red: 1, green: 0.4932718873, blue: 0.4739984274, alpha: 1)
-        CellView.ansButton.layer.cornerRadius = 10
+        CellView.ansButton.layer.cornerRadius = 15
         
         // update timely
         self.view.layoutIfNeeded()
@@ -305,7 +305,9 @@ class GuidedLearningVC: UIViewController {
         print(CellView.cellView.center)
         
     }
-    
+    override var prefersStatusBarHidden: Bool {
+        return true
+    }
 }
 
 /*
