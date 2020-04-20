@@ -18,8 +18,9 @@ class QuizViewController: UIViewController {
     @IBOutlet weak var proceedButton: UIButton!
     @IBOutlet weak var levelTextLabel: UILabel!
     @IBOutlet weak var blurEffect: UIVisualEffectView!
-    @IBOutlet weak var collectionView: UICollectionView!
+    @IBOutlet weak var stackView: UIView!
     
+    @IBOutlet var buttons: [UIButton]!
     
     var level: Int = 1
     var cellLevel: Int = 1
@@ -48,11 +49,7 @@ class QuizViewController: UIViewController {
         return view
     }()
     
-    lazy var cellTextLabel: UILabel = {
-        let label = UILabel(frame: .zero)
-        label.backgroundColor = #colorLiteral(red: 0.7745335698, green: 0.7741701603, blue: 0.8605582118, alpha: 1)        
-        return label
-    }()
+
     
     @objc func revealAnswer(sender: UIButton) {
         
@@ -65,6 +62,7 @@ class QuizViewController: UIViewController {
         currentView!.ansButton.titleLabel?.textColor = #colorLiteral(red: 0, green: 0, blue: 0, alpha: 1)
         
         pulsatingLayerConfig(parentView: currentView!.ansButton)
+        
         
         DispatchQueue.main.asyncAfter(deadline: .now() + 0) {
             // wait for user to dismiss: tap any open area
@@ -145,9 +143,9 @@ class QuizViewController: UIViewController {
         view.addSubview(tempCellView)
         
         currentView = tempCellView
-        
+        //configureButtonStack()
+
         // update timely
-        configureCollectionView()
         self.view.layoutIfNeeded()
         
         
@@ -192,6 +190,26 @@ class QuizViewController: UIViewController {
         
     }
     
+    @IBAction func changeLanguage(sender: AnyObject) {
+        guard let button = sender as? UIButton else {
+            return
+        }
+    
+        switch button.tag {
+            case 1:
+                print(button.tag)
+            // Change to English
+            case 2:
+                print(button.tag)
+            // Change to Spanish
+            case 3:
+                print(button.tag)
+            // Change to French, etc
+            default:
+                print(button.tag)
+            
+        }
+    }
     func enterNewLevel() {
         print("level complete")
         levelTextLabel.text = "You've completed level \(level)!"
@@ -212,20 +230,7 @@ class QuizViewController: UIViewController {
         shadow(view: congratsView)
         
     }
-    
-    func configureCollectionView() {
-        let yPos = (self.view.frame.size.height / 2) * (timesOffsetChanged + 1) - (timesOffsetChanged*spacing)
-        let point = CGPoint(x: self.view.frame.size.width / 2, y: yPos + 80)
-        collectionView.center = point
-        self.view.bringSubviewToFront(collectionView)
-        collectionView.layer.cornerRadius = 15
-        for tagNum in 0...8 {
-            let cv = collectionView.visibleCells[tagNum]
-            cv.addSubview(cellTextLabel)
-            cellTextLabel.frame = cv.frame
-        }
-        
-    }
+
     
     func shadow(view: UIView) {
         view.layer.shadowColor = #colorLiteral(red: 0, green: 0, blue: 0, alpha: 1)
@@ -260,16 +265,43 @@ class QuizViewController: UIViewController {
         blurEffect.isHidden = true
         self.view.bringSubviewToFront(blurEffect)
         tabBarController?.tabBar.isHidden = true
-        collectionView.isHidden = true
+        configureStackView()
+        view.bringSubviewToFront(stackView)
+        //stackView.isHidden = true
         print("GL")
     }
     
+    func configureStackView() {
+        print("DEBUG_BUTTONS: \(buttons)")
+        for button in buttons {
+            if button.tag == 10 {
+                button.titleLabel?.text = ""
+                button.frame.size.width = 46
+                button.frame.size.height = 46
+                button.layer.cornerRadius = 25
+            }
+            else if button.tag == 11 {
+                button.titleLabel?.text = ""
+                button.frame.size.width = 46
+                button.frame.size.height = 46
+                button.layer.cornerRadius = 25
+            }
+            else {
+                button.titleLabel?.text = String(button.tag)
+                button.frame.size.width = 46
+                button.frame.size.height = 46
+                button.layer.cornerRadius = 25
+            }
+        }
+        
+    }
     
     func cellViewInitialization(CellView: CellView,cl: String, ll: String) {
         print(timesOffsetChanged)
         
         //CellView.cellView.backgroundColor = .clear
-        CellView.center = CGPoint(x: self.view.frame.size.width  / 2, y: (self.view.frame.size.height / 2)*(timesOffsetChanged+1) - (timesOffsetChanged*spacing))
+        let y = (self.view.frame.size.height / 2)*(timesOffsetChanged+1) - (timesOffsetChanged*spacing)
+        CellView.center = CGPoint(x: self.view.frame.size.width  / 2, y: y - 50)
         
         /*
          if cellLevel != 1 {
@@ -299,7 +331,8 @@ class QuizViewController: UIViewController {
         
         // update timely
         self.view.layoutIfNeeded()
-        
+        stackView.layer.zPosition = .greatestFiniteMagnitude
+        stackView.isHidden = false
         //cellViewConstraints(CellView: CellView)
         
     }

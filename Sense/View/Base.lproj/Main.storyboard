@@ -18,96 +18,11 @@
                         <rect key="frame" x="0.0" y="0.0" width="414" height="896"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
-                            <collectionView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" fixedFrame="YES" dataMode="prototypes" translatesAutoresizingMaskIntoConstraints="NO" id="Xkc-hM-Bv6">
-                                <rect key="frame" x="87" y="384" width="283" height="287"/>
-                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                                <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
-                                <collectionViewFlowLayout key="collectionViewLayout" minimumLineSpacing="50" minimumInteritemSpacing="50" id="bdX-FJ-dwa">
-                                    <size key="itemSize" width="50" height="50"/>
-                                    <size key="headerReferenceSize" width="0.0" height="0.0"/>
-                                    <size key="footerReferenceSize" width="0.0" height="0.0"/>
-                                    <inset key="sectionInset" minX="0.0" minY="0.0" maxX="0.0" maxY="0.0"/>
-                                </collectionViewFlowLayout>
-                                <cells>
-                                    <collectionViewCell opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" tag="1" contentMode="center" id="t4z-ND-yCA">
-                                        <rect key="frame" x="0.0" y="0.0" width="50" height="50"/>
-                                        <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                                        <view key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" insetsLayoutMarginsFromSafeArea="NO">
-                                            <rect key="frame" x="0.0" y="0.0" width="50" height="50"/>
-                                            <autoresizingMask key="autoresizingMask"/>
-                                        </view>
-                                    </collectionViewCell>
-                                    <collectionViewCell opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" tag="2" contentMode="center" id="xQ6-Cc-pmr">
-                                        <rect key="frame" x="116.66666666666667" y="0.0" width="50" height="50"/>
-                                        <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                                        <view key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" insetsLayoutMarginsFromSafeArea="NO">
-                                            <rect key="frame" x="0.0" y="0.0" width="50" height="50"/>
-                                            <autoresizingMask key="autoresizingMask"/>
-                                        </view>
-                                    </collectionViewCell>
-                                    <collectionViewCell opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" tag="3" contentMode="center" id="qZZ-mJ-OD0">
-                                        <rect key="frame" x="233" y="0.0" width="50" height="50"/>
-                                        <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                                        <view key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" insetsLayoutMarginsFromSafeArea="NO">
-                                            <rect key="frame" x="0.0" y="0.0" width="50" height="50"/>
-                                            <autoresizingMask key="autoresizingMask"/>
-                                        </view>
-                                    </collectionViewCell>
-                                    <collectionViewCell opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" tag="4" contentMode="center" id="2Kw-Cy-gZO">
-                                        <rect key="frame" x="0.0" y="100" width="50" height="50"/>
-                                        <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                                        <view key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" insetsLayoutMarginsFromSafeArea="NO">
-                                            <rect key="frame" x="0.0" y="0.0" width="50" height="50"/>
-                                            <autoresizingMask key="autoresizingMask"/>
-                                        </view>
-                                    </collectionViewCell>
-                                    <collectionViewCell opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" tag="5" contentMode="center" id="yCq-vi-tcb">
-                                        <rect key="frame" x="116.66666666666667" y="100" width="50" height="50"/>
-                                        <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                                        <view key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" insetsLayoutMarginsFromSafeArea="NO">
-                                            <rect key="frame" x="0.0" y="0.0" width="50" height="50"/>
-                                            <autoresizingMask key="autoresizingMask"/>
-                                        </view>
-                                    </collectionViewCell>
-                                    <collectionViewCell opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" tag="6" contentMode="center" id="YKV-bh-EdC">
-                                        <rect key="frame" x="233" y="100" width="50" height="50"/>
-                                        <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                                        <view key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" insetsLayoutMarginsFromSafeArea="NO">
-                                            <rect key="frame" x="0.0" y="0.0" width="50" height="50"/>
-                                            <autoresizingMask key="autoresizingMask"/>
-                                        </view>
-                                    </collectionViewCell>
-                                    <collectionViewCell opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" tag="7" contentMode="center" id="Aid-fI-wox">
-                                        <rect key="frame" x="0.0" y="200" width="50" height="50"/>
-                                        <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                                        <view key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" insetsLayoutMarginsFromSafeArea="NO">
-                                            <rect key="frame" x="0.0" y="0.0" width="50" height="50"/>
-                                            <autoresizingMask key="autoresizingMask"/>
-                                        </view>
-                                    </collectionViewCell>
-                                    <collectionViewCell opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" tag="8" contentMode="center" id="kNm-Jc-2qi">
-                                        <rect key="frame" x="116.66666666666667" y="200" width="50" height="50"/>
-                                        <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                                        <view key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" insetsLayoutMarginsFromSafeArea="NO">
-                                            <rect key="frame" x="0.0" y="0.0" width="50" height="50"/>
-                                            <autoresizingMask key="autoresizingMask"/>
-                                        </view>
-                                    </collectionViewCell>
-                                    <collectionViewCell opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" tag="9" contentMode="center" id="NdQ-9q-RK2">
-                                        <rect key="frame" x="233" y="200" width="50" height="50"/>
-                                        <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                                        <view key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" insetsLayoutMarginsFromSafeArea="NO">
-                                            <rect key="frame" x="0.0" y="0.0" width="50" height="50"/>
-                                            <autoresizingMask key="autoresizingMask"/>
-                                        </view>
-                                    </collectionViewCell>
-                                </cells>
-                            </collectionView>
                             <visualEffectView hidden="YES" opaque="NO" alpha="0.94999998807907104" contentMode="scaleToFill" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="ohg-Uf-mgn">
-                                <rect key="frame" x="0.0" y="0.0" width="414" height="896"/>
+                                <rect key="frame" x="0.0" y="0.0" width="74" height="225"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                 <view key="contentView" hidden="YES" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" ambiguous="YES" insetsLayoutMarginsFromSafeArea="NO" id="pIz-Qz-4pZ">
-                                    <rect key="frame" x="0.0" y="0.0" width="414" height="896"/>
+                                    <rect key="frame" x="0.0" y="0.0" width="74" height="225"/>
                                     <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                                 </view>
                                 <blurEffect style="light"/>
@@ -181,6 +96,122 @@
                                     <action selector="proceedButtonPressed:" destination="B8y-g5-IiL" eventType="touchUpInside" id="NqJ-Up-qLN"/>
                                 </connections>
                             </button>
+                            <view contentMode="scaleToFill" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="IHj-Sq-2Cr">
+                                <rect key="frame" x="69" y="495" width="276" height="280"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                <subviews>
+                                    <stackView opaque="NO" contentMode="scaleToFill" fixedFrame="YES" axis="vertical" spacing="32" translatesAutoresizingMaskIntoConstraints="NO" id="QFr-8N-AoU">
+                                        <rect key="frame" x="29" y="32" width="218" height="216"/>
+                                        <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                        <subviews>
+                                            <stackView opaque="NO" contentMode="scaleToFill" spacing="40" translatesAutoresizingMaskIntoConstraints="NO" id="ozz-OP-bvm" userLabel="Row 1">
+                                                <rect key="frame" x="0.0" y="0.0" width="218" height="30"/>
+                                                <subviews>
+                                                    <button opaque="NO" contentMode="scaleToFill" ambiguous="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="4rl-vQ-rhG">
+                                                        <rect key="frame" x="0.0" y="0.0" width="46" height="30"/>
+                                                        <connections>
+                                                            <action selector="changeLanguageWithSender:" destination="dBt-4H-Ceh" eventType="touchUpInside" id="QCg-Pr-AVL"/>
+                                                        </connections>
+                                                    </button>
+                                                    <button opaque="NO" tag="1" contentMode="scaleToFill" ambiguous="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="acM-nj-xzn">
+                                                        <rect key="frame" x="86" y="0.0" width="46" height="30"/>
+                                                        <state key="normal" title="Button"/>
+                                                        <connections>
+                                                            <action selector="changeLanguageWithSender:" destination="dBt-4H-Ceh" eventType="touchUpInside" id="Nyz-Lg-43f"/>
+                                                        </connections>
+                                                    </button>
+                                                    <button opaque="NO" tag="2" contentMode="scaleToFill" ambiguous="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="9ku-z3-0MS">
+                                                        <rect key="frame" x="172" y="0.0" width="46" height="30"/>
+                                                        <state key="normal" title="Button"/>
+                                                        <connections>
+                                                            <action selector="changeLanguageWithSender:" destination="dBt-4H-Ceh" eventType="touchUpInside" id="4fH-WB-1SU"/>
+                                                        </connections>
+                                                    </button>
+                                                </subviews>
+                                            </stackView>
+                                            <stackView opaque="NO" contentMode="scaleToFill" spacing="40" translatesAutoresizingMaskIntoConstraints="NO" id="uem-Q3-fVk" userLabel="Row 2">
+                                                <rect key="frame" x="0.0" y="62" width="218" height="30"/>
+                                                <subviews>
+                                                    <button opaque="NO" tag="3" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="hfW-8G-sc9">
+                                                        <rect key="frame" x="0.0" y="0.0" width="46" height="30"/>
+                                                        <state key="normal" title="Button"/>
+                                                        <connections>
+                                                            <action selector="changeLanguageWithSender:" destination="dBt-4H-Ceh" eventType="touchUpInside" id="V1U-px-GH6"/>
+                                                        </connections>
+                                                    </button>
+                                                    <button opaque="NO" tag="4" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="MrO-GK-tsR">
+                                                        <rect key="frame" x="86" y="0.0" width="46" height="30"/>
+                                                        <state key="normal" title="Button"/>
+                                                        <connections>
+                                                            <action selector="changeLanguageWithSender:" destination="dBt-4H-Ceh" eventType="touchUpInside" id="w4J-Ud-crZ"/>
+                                                        </connections>
+                                                    </button>
+                                                    <button opaque="NO" tag="5" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="c1u-1y-Y6b">
+                                                        <rect key="frame" x="172" y="0.0" width="46" height="30"/>
+                                                        <state key="normal" title="Button"/>
+                                                        <connections>
+                                                            <action selector="changeLanguageWithSender:" destination="dBt-4H-Ceh" eventType="touchUpInside" id="Iyc-kD-gm9"/>
+                                                        </connections>
+                                                    </button>
+                                                </subviews>
+                                            </stackView>
+                                            <stackView opaque="NO" contentMode="scaleToFill" spacing="40" translatesAutoresizingMaskIntoConstraints="NO" id="nxw-GU-oyL" userLabel="Row 3">
+                                                <rect key="frame" x="0.0" y="124" width="218" height="30"/>
+                                                <subviews>
+                                                    <button opaque="NO" tag="6" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="euQ-DK-SuG">
+                                                        <rect key="frame" x="0.0" y="0.0" width="46" height="30"/>
+                                                        <state key="normal" title="Button"/>
+                                                        <connections>
+                                                            <action selector="changeLanguageWithSender:" destination="dBt-4H-Ceh" eventType="touchUpInside" id="h58-hr-LBH"/>
+                                                        </connections>
+                                                    </button>
+                                                    <button opaque="NO" tag="7" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="Me1-sX-hk0">
+                                                        <rect key="frame" x="86" y="0.0" width="46" height="30"/>
+                                                        <state key="normal" title="Button"/>
+                                                        <connections>
+                                                            <action selector="changeLanguageWithSender:" destination="dBt-4H-Ceh" eventType="touchUpInside" id="Gav-Hv-M7P"/>
+                                                        </connections>
+                                                    </button>
+                                                    <button opaque="NO" tag="8" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="k15-dH-PNO">
+                                                        <rect key="frame" x="172" y="0.0" width="46" height="30"/>
+                                                        <state key="normal" title="Button"/>
+                                                        <connections>
+                                                            <action selector="changeLanguageWithSender:" destination="dBt-4H-Ceh" eventType="touchUpInside" id="tXb-Mm-GOT"/>
+                                                        </connections>
+                                                    </button>
+                                                </subviews>
+                                            </stackView>
+                                            <stackView opaque="NO" contentMode="scaleToFill" spacing="40" translatesAutoresizingMaskIntoConstraints="NO" id="ozl-Hy-HCO" userLabel="Row 4">
+                                                <rect key="frame" x="0.0" y="186" width="218" height="30"/>
+                                                <subviews>
+                                                    <button opaque="NO" tag="10" contentMode="scaleToFill" ambiguous="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="Otx-Nh-NAB">
+                                                        <rect key="frame" x="0.0" y="0.0" width="24" height="30"/>
+                                                        <state key="normal" image="backspace"/>
+                                                        <connections>
+                                                            <action selector="changeLanguageWithSender:" destination="dBt-4H-Ceh" eventType="touchUpInside" id="7FL-lj-mzU"/>
+                                                        </connections>
+                                                    </button>
+                                                    <button opaque="NO" tag="9" contentMode="scaleToFill" ambiguous="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="xJy-wd-oNS">
+                                                        <rect key="frame" x="64" y="0.0" width="46" height="30"/>
+                                                        <state key="normal" title="Button"/>
+                                                        <connections>
+                                                            <action selector="changeLanguageWithSender:" destination="dBt-4H-Ceh" eventType="touchUpInside" id="xO7-nb-tO0"/>
+                                                        </connections>
+                                                    </button>
+                                                    <button opaque="NO" tag="11" contentMode="scaleToFill" ambiguous="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="Oxi-eI-qGt">
+                                                        <rect key="frame" x="150" y="0.0" width="68" height="30"/>
+                                                        <state key="normal" image="enter"/>
+                                                        <connections>
+                                                            <action selector="changeLanguageWithSender:" destination="dBt-4H-Ceh" eventType="touchUpInside" id="bpK-Ed-Gwb"/>
+                                                        </connections>
+                                                    </button>
+                                                </subviews>
+                                            </stackView>
+                                        </subviews>
+                                    </stackView>
+                                </subviews>
+                                <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                            </view>
                         </subviews>
                         <color key="backgroundColor" red="0.8345321421921239" green="1" blue="0.84345087624621973" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                         <viewLayoutGuide key="safeArea" id="whW-bi-j3G"/>
@@ -190,12 +221,24 @@
                     </tabBarItem>
                     <connections>
                         <outlet property="blurEffect" destination="ohg-Uf-mgn" id="JPp-vs-vnI"/>
-                        <outlet property="collectionView" destination="Xkc-hM-Bv6" id="vAR-7Q-hPc"/>
                         <outlet property="congratsView" destination="qFU-3P-FaY" id="oKC-Yc-zsx"/>
                         <outlet property="levelTextLabel" destination="y6z-yf-dP0" id="IZu-bZ-UYx"/>
                         <outlet property="nextButton" destination="205-SM-qod" id="30A-xY-V1Q"/>
                         <outlet property="proceedButton" destination="MvI-M0-rg7" id="8Zu-22-AQE"/>
                         <outlet property="reviewButton" destination="dmX-eK-HS8" id="8AI-KX-JKX"/>
+                        <outlet property="stackView" destination="IHj-Sq-2Cr" id="fiT-xO-vic"/>
+                        <outletCollection property="buttons" destination="c1u-1y-Y6b" collectionClass="NSMutableArray" id="5Ic-dK-w7o"/>
+                        <outletCollection property="buttons" destination="4rl-vQ-rhG" collectionClass="NSMutableArray" id="8gV-Z7-sJs"/>
+                        <outletCollection property="buttons" destination="acM-nj-xzn" collectionClass="NSMutableArray" id="hFF-eJ-R2j"/>
+                        <outletCollection property="buttons" destination="9ku-z3-0MS" collectionClass="NSMutableArray" id="tpu-rF-3gr"/>
+                        <outletCollection property="buttons" destination="hfW-8G-sc9" collectionClass="NSMutableArray" id="o5r-dz-HTE"/>
+                        <outletCollection property="buttons" destination="MrO-GK-tsR" collectionClass="NSMutableArray" id="TCM-zF-aiO"/>
+                        <outletCollection property="buttons" destination="euQ-DK-SuG" collectionClass="NSMutableArray" id="Hor-aU-BHI"/>
+                        <outletCollection property="buttons" destination="Me1-sX-hk0" collectionClass="NSMutableArray" id="DP2-6F-dfB"/>
+                        <outletCollection property="buttons" destination="k15-dH-PNO" collectionClass="NSMutableArray" id="9sL-TW-ASe"/>
+                        <outletCollection property="buttons" destination="Otx-Nh-NAB" collectionClass="NSMutableArray" id="FbX-2U-q6l"/>
+                        <outletCollection property="buttons" destination="xJy-wd-oNS" collectionClass="NSMutableArray" id="zwk-o5-8Lq"/>
+                        <outletCollection property="buttons" destination="Oxi-eI-qGt" collectionClass="NSMutableArray" id="mCc-ao-l7T"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="M4a-wI-9qg" userLabel="First Responder" sceneMemberID="firstResponder"/>
@@ -483,7 +526,9 @@
         </scene>
     </scenes>
     <resources>
+        <image name="backspace" width="24" height="24"/>
         <image name="congratulation" width="512" height="512"/>
+        <image name="enter" width="28" height="28"/>
         <image name="icons8-artificial_intelligence" width="32" height="32"/>
         <image name="icons8-audio_wave" width="32" height="32"/>
         <image name="icons8-double_right" width="32" height="32"/>
