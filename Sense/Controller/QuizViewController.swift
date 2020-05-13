@@ -73,7 +73,11 @@ class QuizViewController: UIViewController {
                 self.currentView!.frame.size.height = 70
                 // Center
                 self.currentView!.center = CGPoint(x: CGFloat(self.view.frame.width/2), y: CGFloat(CGFloat(self.cellLevel-self.level+1)*(self.spacing + (self.currentView!.frame.height))))
-                
+                self.currentView!.firstLabelCenter.constant += 80
+                self.currentView!.secondLabelCenter.constant += 80
+                self.currentView!.newplyCenter.constant += 80
+                self.currentView!.equalSign.frame.origin.y += 80
+                self.currentView!.ansButton.frame.origin.y += 80
                 
                 // update layout right now if any changes
                 self.view.layoutIfNeeded() // !!! important !!!
@@ -137,6 +141,8 @@ class QuizViewController: UIViewController {
         
         tempCellView.tag = Int(String(level)+String(cellLevel))!
         
+        configureStackView()
+        
         cellViewInitialization(CellView: tempCellView, cl: String(cellLevel), ll: String(level))
         
         // !!!
@@ -194,18 +200,15 @@ class QuizViewController: UIViewController {
         guard let button = sender as? UIButton else {
             return
         }
-    
+        
+        //var text: UnsafeMutablePointer<String?> = currentView!.ansButton.titleLabel!.text!
         switch button.tag {
-            case 1:
-                print(button.tag)
-            // Change to English
-            case 2:
-                print(button.tag)
-            // Change to Spanish
-            case 3:
-                print(button.tag)
-            // Change to French, etc
+            case 11:
+                stackView.isHidden = true
+            case 10:
+                currentView!.ansButton.titleLabel!.text!.remove(at: currentView!.ansButton.titleLabel!.text!.index(currentView!.ansButton.titleLabel!.text!.startIndex, offsetBy: currentView!.ansButton.titleLabel!.text!.count))
             default:
+                currentView!.ansButton.titleLabel!.text! += String(button.tag)
                 print(button.tag)
             
         }
@@ -264,35 +267,16 @@ class QuizViewController: UIViewController {
         shadow(view: proceedButton)
         blurEffect.isHidden = true
         self.view.bringSubviewToFront(blurEffect)
-        tabBarController?.tabBar.isHidden = true
-        configureStackView()
         view.bringSubviewToFront(stackView)
+        tabBarController?.tabBar.isHidden = true
+        
         //stackView.isHidden = true
         print("GL")
     }
     
     func configureStackView() {
         print("DEBUG_BUTTONS: \(buttons)")
-        for button in buttons {
-            if button.tag == 10 {
-                button.titleLabel?.text = ""
-                button.frame.size.width = 46
-                button.frame.size.height = 46
-                button.layer.cornerRadius = 25
-            }
-            else if button.tag == 11 {
-                button.titleLabel?.text = ""
-                button.frame.size.width = 46
-                button.frame.size.height = 46
-                button.layer.cornerRadius = 25
-            }
-            else {
-                button.titleLabel?.text = String(button.tag)
-                button.frame.size.width = 46
-                button.frame.size.height = 46
-                button.layer.cornerRadius = 25
-            }
-        }
+        stackView.layer.cornerRadius = 15
         
     }
     
@@ -301,8 +285,14 @@ class QuizViewController: UIViewController {
         
         //CellView.cellView.backgroundColor = .clear
         let y = (self.view.frame.size.height / 2)*(timesOffsetChanged+1) - (timesOffsetChanged*spacing)
-        CellView.center = CGPoint(x: self.view.frame.size.width  / 2, y: y - 50)
+        CellView.center = CGPoint(x: self.view.frame.size.width  / 2, y: y)
         
+        CellView.firstLabelCenter.constant -= 80
+        CellView.secondLabelCenter.constant -= 80
+        CellView.newplyCenter.constant -= 80
+        CellView.equalSign.frame.origin.y -= 80
+        CellView.ansButton.frame.origin.y -= 80
+        //print("ANSBUTTON CONSTRAINTS: \(CellView.ansButton.constraints)")
         /*
          if cellLevel != 1 {
          let aboveViewTag = Int(String(level)+String(Int(cellLevel)-1))

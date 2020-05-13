@@ -19,6 +19,10 @@ class CellView: UIView {
     @IBOutlet var cellView: UIView!
     @IBOutlet weak var ansButton: UIButton!
     @IBOutlet weak var secondLabel: UILabel!
+    @IBOutlet weak var firstLabelCenter: NSLayoutConstraint!
+    @IBOutlet weak var newplyCenter: NSLayoutConstraint!
+    @IBOutlet weak var secondLabelCenter: NSLayoutConstraint!
+    @IBOutlet weak var equalSign: UIImageView!
     
     /*
     // Only override draw() if you perform custom drawing.

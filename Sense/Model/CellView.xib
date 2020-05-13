@@ -14,8 +14,12 @@
             <connections>
                 <outlet property="ansButton" destination="JAm-qQ-Dr8" id="sX0-nX-6OY"/>
                 <outlet property="cellView" destination="iN0-l3-epB" id="Wfl-zy-hUa"/>
+                <outlet property="equalSign" destination="LxI-o0-g3a" id="qgi-Yu-1uf"/>
                 <outlet property="firstLabel" destination="AAW-hE-h96" id="NWP-j7-ajL"/>
+                <outlet property="firstLabelCenter" destination="29R-Br-NOF" id="rV0-qf-WbE"/>
+                <outlet property="newplyCenter" destination="Ipg-vU-2lm" id="A9p-Yd-Goi"/>
                 <outlet property="secondLabel" destination="6gT-sr-g2a" id="7cN-rm-lzl"/>
+                <outlet property="secondLabelCenter" destination="dAe-HW-Rmi" id="LYs-8x-q0O"/>
             </connections>
         </placeholder>
         <placeholder placeholderIdentifier="IBFirstResponder" id="-2" customClass="UIResponder"/>
