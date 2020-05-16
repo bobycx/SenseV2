@@ -53,6 +53,93 @@ class QuizViewController: UIViewController {
     
     @objc func revealAnswer(sender: UIButton) {
         
+        
+        
+        print("yo mama")
+        
+        
+        
+    }
+    
+    func createNewView() {
+        
+        if (Int(self.view.frame.height - latestYCor)) < 90 && timesOffsetChanged != 1 {
+            let scrollPoint = CGPoint(x: 0.0, y: 300.0)
+            scrollview.contentSize = contentViewSize
+            scrollview.setContentOffset(scrollPoint, animated: false)
+            timesOffsetChanged += 1
+        }
+        //Just for test
+        let tempCellView = CellView(frame: CGRect(x:0, y:0, width:self.view.frame.width - 50, height:self.view.frame.height-80))
+        
+        //let tempCellView = CellView(frame: CGRect(x:0, y:0, width:300, height:10))
+        
+        //let tempCellView = CellView(frame: self.view.bounds)
+        
+        
+        tempCellView.tag = Int(String(level)+String(cellLevel))!
+        
+        configureStackView()
+        
+        cellViewInitialization(CellView: tempCellView, cl: String(cellLevel), ll: String(level))
+        
+        // !!!
+        view.addSubview(tempCellView)
+        
+        currentView = tempCellView
+        //configureButtonStack()
+
+        // update timely
+        self.view.layoutIfNeeded()
+        view.bringSubviewToFront(stackView)
+        UIView.animate(withDuration: 0.5, animations: {
+            // Height
+            self.stackView.alpha = 1
+        })
+        
+        
+    }
+
+    
+    @IBAction func proceedButtonPressed(_ sender: UIButton) {
+        proceedButton.isHidden = true
+        for view in scrollview.subviews {
+            view.removeFromSuperview()
+        }
+        level += 1
+        cellLevel = level
+        timesOffsetChanged = 0
+        latestYCor = 0
+        createNewView()
+    }
+    @IBAction func nextLevelButtonPressed(_ sender: UIButton) {
+        congratsView.isHidden = true
+        blurEffect.isHidden = true
+        for view in scrollview.subviews {
+            view.removeFromSuperview()
+        }
+        level += 1
+        cellLevel = level
+        timesOffsetChanged = 0
+        latestYCor = 0
+        createNewView()
+        tabBarController?.tabBar.isHidden = true
+    }
+    
+    @IBAction func reviewButtonPressed(_ sender: UIButton) {
+        self.view.bringSubviewToFront(self.proceedButton)
+        UIView.animate(withDuration: 2, animations: {
+            self.congratsView.isHidden = true
+            self.proceedButton.isHidden = false
+            self.blurEffect.isHidden = true
+            
+            
+        })
+        tabBarController?.tabBar.isHidden = true
+        
+    }
+    
+    func correctAnswer() {
         print(cellLevel)
         print(level)
         let str_result = String(Int(currentView!.firstLabel!.text!)! * Int(currentView!.secondLabel!.text!)!);
@@ -115,85 +202,14 @@ class QuizViewController: UIViewController {
                 
             })
         }
-        
-        
-        
     }
     
-    func createNewView() {
-        
-        if (Int(self.view.frame.height - latestYCor)) < 90 && timesOffsetChanged != 1 {
-            let scrollPoint = CGPoint(x: 0.0, y: 300.0)
-            scrollview.contentSize = contentViewSize
-            scrollview.setContentOffset(scrollPoint, animated: false)
-            timesOffsetChanged += 1
+    func configureButtons() {
+        for button in buttons {
+            button.backgroundColor = #colorLiteral(red: 0.9254902005, green: 0.2352941185, blue: 0.1019607857, alpha: 1)
+            button.layer.cornerRadius = 20
+            //button.titleLabel?.textColor = #colorLiteral(red: 1.0, green: 1.0, blue: 1.0, alpha: 1.0)
         }
-        //Just for test
-        let tempCellView = CellView(frame: CGRect(x:0, y:0, width:self.view.frame.width - 50, height:self.view.frame.height-80))
-        
-        //let tempCellView = CellView(frame: CGRect(x:0, y:0, width:300, height:10))
-        
-        //let tempCellView = CellView(frame: self.view.bounds)
-        
-        UIView.transition(with: self.view, duration: 0.5, options: [.transitionCrossDissolve], animations: {
-            //self.scrollview.addSubview(tempCellView)
-        }, completion: nil)
-        
-        tempCellView.tag = Int(String(level)+String(cellLevel))!
-        
-        configureStackView()
-        
-        cellViewInitialization(CellView: tempCellView, cl: String(cellLevel), ll: String(level))
-        
-        // !!!
-        view.addSubview(tempCellView)
-        
-        currentView = tempCellView
-        //configureButtonStack()
-
-        // update timely
-        self.view.layoutIfNeeded()
-        
-        
-    }
-
-    
-    @IBAction func proceedButtonPressed(_ sender: UIButton) {
-        proceedButton.isHidden = true
-        for view in scrollview.subviews {
-            view.removeFromSuperview()
-        }
-        level += 1
-        cellLevel = level
-        timesOffsetChanged = 0
-        latestYCor = 0
-        createNewView()
-    }
-    @IBAction func nextLevelButtonPressed(_ sender: UIButton) {
-        congratsView.isHidden = true
-        blurEffect.isHidden = true
-        for view in scrollview.subviews {
-            view.removeFromSuperview()
-        }
-        level += 1
-        cellLevel = level
-        timesOffsetChanged = 0
-        latestYCor = 0
-        createNewView()
-        tabBarController?.tabBar.isHidden = true
-    }
-    
-    @IBAction func reviewButtonPressed(_ sender: UIButton) {
-        self.view.bringSubviewToFront(self.proceedButton)
-        UIView.animate(withDuration: 2, animations: {
-            self.congratsView.isHidden = true
-            self.proceedButton.isHidden = false
-            self.blurEffect.isHidden = true
-            
-            
-        })
-        tabBarController?.tabBar.isHidden = true
-        
     }
     
     @IBAction func changeLanguage(sender: AnyObject) {
@@ -201,14 +217,52 @@ class QuizViewController: UIViewController {
             return
         }
         
-        //var text: UnsafeMutablePointer<String?> = currentView!.ansButton.titleLabel!.text!
+        let ans_length: Int = String(Int(currentView!.firstLabel!.text!)! * Int(currentView!.secondLabel!.text!)!).count;
+        if currentView?.ansButton.currentTitle == "_" || currentView?.ansButton.currentTitle == "__" {
+            currentView!.ansButton.setTitle("", for: .normal)
+            print("removed!!")
+        }
+        
         switch button.tag {
             case 11:
-                stackView.isHidden = true
+                
+                if currentView!.ansButton.titleLabel?.text == String(Int(currentView!.firstLabel!.text!)! * Int(currentView!.secondLabel!.text!)!) {
+                    print("congratulations!")
+                    stackView.alpha = 0
+                    correctAnswer()
+                }
             case 10:
-                currentView!.ansButton.titleLabel!.text!.remove(at: currentView!.ansButton.titleLabel!.text!.index(currentView!.ansButton.titleLabel!.text!.startIndex, offsetBy: currentView!.ansButton.titleLabel!.text!.count))
+                if currentView?.ansButton.currentTitle?.last == "_" {
+                    currentView!.ansButton.setTitle("__", for: .normal)
+                }
+                else if currentView?.ansButton.currentTitle?.count == ans_length {
+                    let tempTitle = currentView!.ansButton.currentTitle!.dropLast()
+                    currentView!.ansButton.setTitle(String(tempTitle) + "_", for: .normal)
+                }
+                else {
+                    let tempTitle = currentView!.ansButton.currentTitle!.dropLast()
+                    currentView!.ansButton.setTitle(String(tempTitle), for: .normal)
+                }
+            
             default:
-                currentView!.ansButton.titleLabel!.text! += String(button.tag)
+                
+                if ans_length == 1 {
+                    currentView!.ansButton.setTitle(String(button.tag), for: .normal)
+                    print("equal")
+                }
+                else {
+                    if currentView?.ansButton.currentTitle?.count != ans_length && currentView?.ansButton.currentTitle?.last != "_" && currentView?.ansButton.currentTitle == "" {
+                        currentView!.ansButton.setTitle((currentView?.ansButton.currentTitle)! + String(button.tag) + "_", for: .normal)
+                        print("plus equal")
+                        print(currentView?.ansButton.currentTitle)
+                    }
+                    else {
+                        
+                        let tempTitle = currentView!.ansButton.currentTitle!.dropLast()
+                        currentView!.ansButton.setTitle(tempTitle + String(button.tag), for: .normal)
+                    }
+                }
+                
                 print(button.tag)
             
         }
@@ -267,9 +321,9 @@ class QuizViewController: UIViewController {
         shadow(view: proceedButton)
         blurEffect.isHidden = true
         self.view.bringSubviewToFront(blurEffect)
-        view.bringSubviewToFront(stackView)
-        tabBarController?.tabBar.isHidden = true
         
+        tabBarController?.tabBar.isHidden = true
+        configureButtons()
         //stackView.isHidden = true
         print("GL")
     }
@@ -285,6 +339,8 @@ class QuizViewController: UIViewController {
         
         //CellView.cellView.backgroundColor = .clear
         let y = (self.view.frame.size.height / 2)*(timesOffsetChanged+1) - (timesOffsetChanged*spacing)
+        
+        
         CellView.center = CGPoint(x: self.view.frame.size.width  / 2, y: y)
         
         CellView.firstLabelCenter.constant -= 80
@@ -324,7 +380,12 @@ class QuizViewController: UIViewController {
         stackView.layer.zPosition = .greatestFiniteMagnitude
         stackView.isHidden = false
         //cellViewConstraints(CellView: CellView)
-        
+        let ans_length: Int = String(Int(CellView.firstLabel!.text!)! * Int(CellView.secondLabel!.text!)!).count;
+        if ans_length == 1 {
+            CellView.ansButton.setTitle("_", for: .normal)
+        } else {
+            CellView.ansButton.setTitle("__", for: .normal)
+        }
     }
     
     
