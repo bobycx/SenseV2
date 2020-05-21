@@ -54,7 +54,6 @@ class QuizViewController: UIViewController {
     @objc func revealAnswer(sender: UIButton) {
         
         
-        
         print("yo mama")
         
         
@@ -87,7 +86,6 @@ class QuizViewController: UIViewController {
         view.addSubview(tempCellView)
         
         currentView = tempCellView
-        //configureButtonStack()
 
         // update timely
         self.view.layoutIfNeeded()
@@ -205,10 +203,26 @@ class QuizViewController: UIViewController {
     }
     
     func configureButtons() {
-        for button in buttons {
-            button.backgroundColor = #colorLiteral(red: 0.9254902005, green: 0.2352941185, blue: 0.1019607857, alpha: 1)
-            button.layer.cornerRadius = 20
-            //button.titleLabel?.textColor = #colorLiteral(red: 1.0, green: 1.0, blue: 1.0, alpha: 1.0)
+        stackView.frame.origin.y += 150
+        for (i, button) in buttons.enumerated() {
+            if button.tag != 11 && button.tag != 10 {
+                button.backgroundColor = #colorLiteral(red: 0.9568627477, green: 0.6588235497, blue: 0.5450980663, alpha: 1)
+                button.layer.cornerRadius = 15
+                button.frame.size.width += 5
+                button.frame.size.height += 5
+                /*
+                if button.tag == 9 {
+                    button.center = CGPoint(x: buttons[2].frame.origin.x, y: button.frame.origin.y)
+                }
+                */
+                //button.titleLabel?.textColor = #colorLiteral(red: 1.0, green: 1.0, blue: 1.0, alpha: 1.0)
+                
+            }
+            else {
+                button.frame.size.width = 30
+                button.frame.size.height = 30
+                print(button.frame.size)
+            }
         }
     }
     
