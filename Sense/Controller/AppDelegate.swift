@@ -15,25 +15,10 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
     
     
     func application(_ application: UIApplication, didFinishLaunchingWithOptions launchOptions: [UIApplication.LaunchOptionsKey: Any]?) -> Bool {
-        //configureTabBar()
         
-        // Override point for customization after application launch.
-        /*
-        let tabBarController = UITabBarController()
-        let item = UITabBarItem()
-        let mainVC = LearnViewController()
         
-        tabBarController.viewControllers = [mainVC]
+        print("plocal storage ldata: \(NSSearchPathForDirectoriesInDomains(.documentDirectory, .userDomainMask, true).last! as String)")
         
-        //configuration
-        tabBarController.selectedViewController = mainVC
-        
-        item.title = .none
-        item.image = UIImage(named: "Learn")
-        mainVC.tabBarItem = item
-        
-        //window!.rootViewController = tabBarController
-        */
         return true
     }
 
@@ -43,7 +28,10 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
     }
 
     func applicationDidEnterBackground(_ application: UIApplication) {
-        print("applicationDidEnterBackground")
+        //print("applicationDidEnterBackground: \(gVars.level) \(gVars.cellLevel)")
+        let defaults = UserDefaults.standard
+        let cL = defaults.integer(forKey: "cellLevel") 
+        print(cL)
     }
 
     func applicationWillEnterForeground(_ application: UIApplication) {

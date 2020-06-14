@@ -9,6 +9,9 @@
 import UIKit
 import Hero
 import ChameleonFramework
+import Lottie
+
+
 
 class QuizViewController: UIViewController {
     
@@ -20,10 +23,40 @@ class QuizViewController: UIViewController {
     @IBOutlet weak var blurEffect: UIVisualEffectView!
     @IBOutlet weak var stackView: UIView!
     
+    @IBOutlet weak var finalView: UIView!
+    
+    @IBOutlet weak var timeLabel: UILabel!
+    @IBOutlet weak var correctLabel: UILabel!
+    @IBOutlet weak var highScoreLabel: UILabel!
+    
+    let pulsatingView = AnimationView()
+    
     @IBOutlet var buttons: [UIButton]!
     
-    var level: Int = 1
-    var cellLevel: Int = 1
+    let defaults = UserDefaults.standard
+    
+    var level: Int = 9{
+        didSet{
+            defaults.setValue(level, forKey: "level")
+        }
+    }//= gVars.level
+    var cellLevel: Int = 9{
+        didSet{
+            defaults.setValue(cellLevel, forKey: "cellLevel")
+        }
+    }//= gVars.cellLevel
+    var questionsCorrect: Int = 0{
+        didSet{
+            defaults.setValue(questionsCorrect, forKey: "questionsCorrect")
+        }
+    }
+    
+    var startTime: Int = 0 {
+        didSet{
+            defaults.setValue(startTime, forKey: "startTime")
+        }
+    }
+    var endTime: Int = 0
     var currentView: CellView?
     var latestYCor: CGFloat = 0
     var spacing: CGFloat = 20
@@ -37,6 +70,8 @@ class QuizViewController: UIViewController {
     
     var pulsatingLayer: CAShapeLayer!
     
+
+    
     lazy var scrollview: UIScrollView = {
         let view = UIScrollView(frame: .zero)
         view.backgroundColor = .white
@@ -49,7 +84,7 @@ class QuizViewController: UIViewController {
         return view
     }()
     
-
+    
     
     @objc func revealAnswer(sender: UIButton) {
         
@@ -97,18 +132,78 @@ class QuizViewController: UIViewController {
         
         
     }
+    
 
+    
+    func currentTime() -> Int {
+        let date = Date()
+        let calendar = Calendar.current
+        let hour = calendar.component(.hour, from: date)
+        let minutes = calendar.component(.minute, from: date)
+        return (hour*60)+minutes
+    }
+    
+    func finalScoreViewConfig() {
+        if defaults.integer(forKey: "highScore") <= questionsCorrect {
+            defaults.setValue(questionsCorrect, forKey: "highScore")
+        }
+        endTime = currentTime() - startTime
+        print(endTime)
+        let displayLink = CADisplayLink(target: self, selector: #selector(updater))
+        displayLink.add(to: .main, forMode: .default)
+        finalView.isHidden = false
+        finalView.layer.zPosition = CGFloat(10)
+        stackView.isHidden = true
+        correctLabel.text = "0"
+        highScoreLabel.text = "0"
+        timeLabel.text = "0"
+        print(questionsCorrect)
+        level = 0
+        cellLevel = 0
+        
+        
+    }
+    
+    @objc func updater() {
+
+        if Int(correctLabel.text!)! < Int(questionsCorrect) {
+            correctLabel.text = String(Int(correctLabel!.text!)! + 1)
+        }
+        else if Int(correctLabel.text!)! == Int(questionsCorrect){
+            questionsCorrect = 0
+        }
+        
+        if Int(highScoreLabel.text!)! < Int(defaults.integer(forKey: "highScore")) {
+            highScoreLabel.text = String(Int(highScoreLabel!.text!)! + 1)
+        }
+        
+        if Int(timeLabel.text!)! < endTime {
+            timeLabel.text = String(Int(timeLabel!.text!)! + 1)
+        }
+        else if Int(timeLabel.text!)! == endTime {
+            endTime = 0
+            startTime = 0
+        }
+        
+    }
     
     @IBAction func proceedButtonPressed(_ sender: UIButton) {
         proceedButton.isHidden = true
         for view in scrollview.subviews {
             view.removeFromSuperview()
         }
-        level += 1
-        cellLevel = level
-        timesOffsetChanged = 0
-        latestYCor = 0
-        createNewView()
+        if level == 9 {
+            print("floor gang auh")
+            finalScoreViewConfig()
+        }
+        else {
+            level += 1
+            cellLevel = level
+            timesOffsetChanged = 0
+            latestYCor = 0
+            createNewView()
+        }
+        
     }
     @IBAction func nextLevelButtonPressed(_ sender: UIButton) {
         congratsView.isHidden = true
@@ -116,12 +211,19 @@ class QuizViewController: UIViewController {
         for view in scrollview.subviews {
             view.removeFromSuperview()
         }
-        level += 1
-        cellLevel = level
-        timesOffsetChanged = 0
-        latestYCor = 0
-        createNewView()
-        tabBarController?.tabBar.isHidden = true
+        if level == 9 {
+            print("floor gang auh")
+            finalScoreViewConfig()
+        }
+        else {
+            level += 1
+            cellLevel = level
+            timesOffsetChanged = 0
+            latestYCor = 0
+            createNewView()
+            tabBarController?.tabBar.isHidden = true
+        }
+        
     }
     
     @IBAction func reviewButtonPressed(_ sender: UIButton) {
@@ -140,6 +242,7 @@ class QuizViewController: UIViewController {
     func correctAnswer() {
         print(cellLevel)
         print(level)
+        questionsCorrect += 1
         let str_result = String(Int(currentView!.firstLabel!.text!)! * Int(currentView!.secondLabel!.text!)!);
         
         currentView!.ansButton.setTitle(str_result, for: .normal);
@@ -194,6 +297,7 @@ class QuizViewController: UIViewController {
                     }
                     else {
                         //temp commented
+                        
                         self.createNewView()
                     }
                 })
@@ -283,6 +387,9 @@ class QuizViewController: UIViewController {
     }
     func enterNewLevel() {
         print("level complete")
+        if level == 9 {
+            nextButton.setTitle("Finish", for: .normal)
+        }
         levelTextLabel.text = "You've completed level \(level)!"
         blurEffect.isHidden = false
         self.view.bringSubviewToFront(blurEffect)
@@ -323,10 +430,17 @@ class QuizViewController: UIViewController {
         parentView.layer.addSublayer(pulsatingLayer)
     }
     
+    override func viewDidDisappear(_ animated: Bool) {
+        gVars.level = level
+        gVars.cellLevel = cellLevel
+        print("levels \(gVars.level) \(gVars.cellLevel)")
+    }
+    
     override func viewDidLoad() {
         super.viewDidLoad()
-        
+        fetchFromDefaults()
         configureCongrats()
+        finalView.isHidden = true
         view.addSubview(scrollview)
         createNewView()
         //shadow(view: backButton)
@@ -338,8 +452,28 @@ class QuizViewController: UIViewController {
         
         tabBarController?.tabBar.isHidden = true
         configureButtons()
+        startTime = currentTime()        
         //stackView.isHidden = true
         print("GL")
+    }
+    
+    func fetchFromDefaults() {
+        latestYCor = 0
+        level = 8
+        cellLevel = 8
+        if let _ = defaults.integer(forKey: "highScore") as? Int {
+            //
+        } else {
+            defaults.setValue(0, forKey: "highScore")
+        }
+        
+        if let plevel = defaults.integer(forKey: "level") as? Int {
+            level = plevel
+        }
+        if let pcellLevel = defaults.integer(forKey: "cellLevel") as? Int {
+            cellLevel = pcellLevel
+        }
+
     }
     
     func configureStackView() {

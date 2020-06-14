@@ -17,11 +17,14 @@
 		C67D9910236BA63C000B638F /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = C67D990E236BA63C000B638F /* Main.storyboard */; };
 		C67D9912236BA63E000B638F /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = C67D9911236BA63E000B638F /* Assets.xcassets */; };
 		C67D9915236BA63E000B638F /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = C67D9913236BA63E000B638F /* LaunchScreen.storyboard */; };
+		C687DC4224967F74004C32A3 /* Pulsating.json in Resources */ = {isa = PBXBuildFile; fileRef = C687DC4124967F74004C32A3 /* Pulsating.json */; };
+		C687DC44249685BC004C32A3 /* 24455-summer-buddy.json in Resources */ = {isa = PBXBuildFile; fileRef = C687DC43249685BC004C32A3 /* 24455-summer-buddy.json */; };
 		C694BAF32422FB420037EEC0 /* ChooseLearningModeVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = C694BAF22422FB420037EEC0 /* ChooseLearningModeVC.swift */; };
 		C694BAF62423C37F0037EEC0 /* ScaleSegue.swift in Sources */ = {isa = PBXBuildFile; fileRef = C694BAF52423C37F0037EEC0 /* ScaleSegue.swift */; };
 		C694BAF82423F7160037EEC0 /* GuidedLearningVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = C694BAF72423F7150037EEC0 /* GuidedLearningVC.swift */; };
 		C694BB0E24246D9F0037EEC0 /* CellView.xib in Resources */ = {isa = PBXBuildFile; fileRef = C694BB0D24246D9F0037EEC0 /* CellView.xib */; };
 		C694BB1024246DF10037EEC0 /* CellView.swift in Sources */ = {isa = PBXBuildFile; fileRef = C694BB0F24246DF10037EEC0 /* CellView.swift */; };
+		C69B16232492788A0044D972 /* global.swift in Sources */ = {isa = PBXBuildFile; fileRef = C69B16222492788A0044D972 /* global.swift */; };
 		C6B4471C23BD9C7500022C11 /* QuizViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = C6B4471B23BD9C7500022C11 /* QuizViewController.swift */; };
 		C6B4471E23BD9CCF00022C11 /* ListenViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = C6B4471D23BD9CCF00022C11 /* ListenViewController.swift */; };
 /* End PBXBuildFile section */
@@ -40,11 +43,14 @@
 		C67D9911236BA63E000B638F /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		C67D9914236BA63E000B638F /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
 		C67D9916236BA63E000B638F /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		C687DC4124967F74004C32A3 /* Pulsating.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; path = Pulsating.json; sourceTree = "<group>"; };
+		C687DC43249685BC004C32A3 /* 24455-summer-buddy.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; path = "24455-summer-buddy.json"; sourceTree = "<group>"; };
 		C694BAF22422FB420037EEC0 /* ChooseLearningModeVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ChooseLearningModeVC.swift; sourceTree = "<group>"; };
 		C694BAF52423C37F0037EEC0 /* ScaleSegue.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ScaleSegue.swift; sourceTree = "<group>"; };
 		C694BAF72423F7150037EEC0 /* GuidedLearningVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GuidedLearningVC.swift; sourceTree = "<group>"; };
 		C694BB0D24246D9F0037EEC0 /* CellView.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = CellView.xib; sourceTree = "<group>"; };
 		C694BB0F24246DF10037EEC0 /* CellView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CellView.swift; sourceTree = "<group>"; };
+		C69B16222492788A0044D972 /* global.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = global.swift; sourceTree = "<group>"; };
 		C6B4471B23BD9C7500022C11 /* QuizViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = QuizViewController.swift; sourceTree = "<group>"; };
 		C6B4471D23BD9CCF00022C11 /* ListenViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ListenViewController.swift; sourceTree = "<group>"; };
 		E56DCB2AC1907AABCA945F0F /* Pods_Sense.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_Sense.framework; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -103,6 +109,8 @@
 		C61F60FC2384B0E1007F5035 /* Controller */ = {
 			isa = PBXGroup;
 			children = (
+				C687DC43249685BC004C32A3 /* 24455-summer-buddy.json */,
+				C687DC4124967F74004C32A3 /* Pulsating.json */,
 				C67D990A236BA63C000B638F /* AppDelegate.swift */,
 				C67D990C236BA63C000B638F /* LearnViewController.swift */,
 				C61F610123987B3D007F5035 /* TabBarController.swift */,
@@ -135,6 +143,8 @@
 		C67D9909236BA63C000B638F /* Sense */ = {
 			isa = PBXGroup;
 			children = (
+				C687DC4024967F58004C32A3 /* Animations */,
+				C69B16212492786B0044D972 /* Global Classes */,
 				C694BAF42423C34C0037EEC0 /* Custom Segues */,
 				C61F60FC2384B0E1007F5035 /* Controller */,
 				C61F60FB2384B0DB007F5035 /* View */,
@@ -145,12 +155,27 @@
 			path = Sense;
 			sourceTree = "<group>";
 		};
+		C687DC4024967F58004C32A3 /* Animations */ = {
+			isa = PBXGroup;
+			children = (
+			);
+			path = Animations;
+			sourceTree = "<group>";
+		};
 		C694BAF42423C34C0037EEC0 /* Custom Segues */ = {
 			isa = PBXGroup;
 			children = (
 				C694BAF52423C37F0037EEC0 /* ScaleSegue.swift */,
 			);
 			path = "Custom Segues";
+			sourceTree = "<group>";
+		};
+		C69B16212492786B0044D972 /* Global Classes */ = {
+			isa = PBXGroup;
+			children = (
+				C69B16222492788A0044D972 /* global.swift */,
+			);
+			path = "Global Classes";
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -214,6 +239,8 @@
 			buildActionMask = 2147483647;
 			files = (
 				C67D9915236BA63E000B638F /* LaunchScreen.storyboard in Resources */,
+				C687DC44249685BC004C32A3 /* 24455-summer-buddy.json in Resources */,
+				C687DC4224967F74004C32A3 /* Pulsating.json in Resources */,
 				C61F61002384B12E007F5035 /* QuestionCell.xib in Resources */,
 				C67D9912236BA63E000B638F /* Assets.xcassets in Resources */,
 				C694BB0E24246D9F0037EEC0 /* CellView.xib in Resources */,
@@ -252,12 +279,14 @@
 				"${BUILT_PRODUCTS_DIR}/ChameleonFramework/ChameleonFramework.framework",
 				"${BUILT_PRODUCTS_DIR}/Hero/Hero.framework",
 				"${BUILT_PRODUCTS_DIR}/VBRRollingPit/VBRRollingPit.framework",
+				"${BUILT_PRODUCTS_DIR}/lottie-ios/Lottie.framework",
 			);
 			name = "[CP] Embed Pods Frameworks";
 			outputPaths = (
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/ChameleonFramework.framework",
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/Hero.framework",
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/VBRRollingPit.framework",
+				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/Lottie.framework",
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 			shellPath = /bin/sh;
@@ -271,6 +300,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				C69B16232492788A0044D972 /* global.swift in Sources */,
 				C694BB1024246DF10037EEC0 /* CellView.swift in Sources */,
 				C61F60FF2384B12E007F5035 /* CustomQuestionCell.swift in Sources */,
 				C6B4471C23BD9C7500022C11 /* QuizViewController.swift in Sources */,

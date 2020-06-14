@@ -9,5 +9,7 @@ target 'Sense' do
   pod 'ChameleonFramework/Swift', :git => 'https://github.com/ViccAlexander/Chameleon.git'
   pod 'VBRRollingPit'
   pod 'Hero'
+  pod 'lottie-ios'
+
 
 end
