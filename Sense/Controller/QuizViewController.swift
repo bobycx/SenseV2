@@ -443,6 +443,7 @@ class QuizViewController: UIViewController {
         finalView.isHidden = true
         view.addSubview(scrollview)
         createNewView()
+        print("CENTres: \(currentView?.ansButton.center)")
         //shadow(view: backButton)
         proceedButton.isHidden = true
         proceedButton.layer.cornerRadius = 25
@@ -454,7 +455,21 @@ class QuizViewController: UIViewController {
         configureButtons()
         startTime = currentTime()        
         //stackView.isHidden = true
+        pulsatingConfig()
+        print("CENTres: \(pulsatingView.center), \(currentView?.ansButton.center)")
         print("GL")
+    }
+    
+    func pulsatingConfig() {
+        pulsatingView.frame = CGRect(x: ((currentView?.ansButton.frame.origin.x)!), y: ((currentView?.ansButton.frame.origin.y)!), width: 100, height: 100)
+        pulsatingView.center = (currentView?.ansButton.center)!
+        pulsatingView.animation = Animation.named("Pulsating")
+        pulsatingView.loopMode = .loop
+        pulsatingView.contentMode = .scaleAspectFit
+        pulsatingView.play()
+        view.addSubview(pulsatingView)
+        pulsatingView.layer.zPosition = 11
+        
     }
     
     func fetchFromDefaults() {

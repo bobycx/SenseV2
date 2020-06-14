@@ -33,17 +33,7 @@ class CellView: UIView {
     */
     let pulsatingView = AnimationView()
     
-    func pulsatingConfig() {
-        pulsatingView.frame = CGRect(x: (ansButton.frame.origin.x), y: (ansButton.frame.origin.y), width: 100, height: 100)
-        pulsatingView.center = ansButton.center
-        pulsatingView.animation = Animation.named("Pulsating")
-        pulsatingView.loopMode = .loop
-        pulsatingView.contentMode = .scaleAspectFit
-        pulsatingView.play()
-        self.addSubview(pulsatingView)
-        pulsatingView.layer.zPosition = 11
-        
-    }
+
     
     override init(frame: CGRect) {
         super.init(frame: frame)
@@ -88,7 +78,7 @@ class CellView: UIView {
         
         self.cellView.backgroundColor = UIColor.clear
         self.addSubview(self.cellView)
-        pulsatingConfig()
+        //pulsatingConfig()
         self.bringSubviewToFront(ansButton)
     }
     // xib for creating the objects of the CellView
