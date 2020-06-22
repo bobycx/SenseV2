@@ -13,13 +13,11 @@ import Lottie
 
 class QuizViewController: UIViewController {
     
+    var top : CGFloat?
+    var bottom : CGFloat?
+    var half : CGFloat?
     
-    let top = 764
-    let bottom = 700
-    
-    lazy var half:Int = {
-        return self.top - ((self.top - self.bottom)/10)
-    }()
+
     
     @IBOutlet weak var congratsView: UIView!
     @IBOutlet weak var reviewButton: UIButton!
@@ -113,7 +111,8 @@ class QuizViewController: UIViewController {
     }
     @IBAction func resetPressed(_ sender: UIButton) {
         print("bruh why is this gay")
-        viewDidLoad()
+        level = 1
+        cellLevel = 1
     }
     
     func createNewView() {
@@ -465,7 +464,12 @@ class QuizViewController: UIViewController {
         shadow(view: congratsView)
         
     }
-
+    func configureDropDownView() {
+        top = view.frame.height
+        bottom = top!-100
+        half = top! - ((top! - bottom!)/10)
+        dropDownView.layer.cornerRadius = 30
+    }
     
     func shadow(view: UIView) {
         view.layer.shadowColor = #colorLiteral(red: 0, green: 0, blue: 0, alpha: 1)
@@ -495,10 +499,10 @@ class QuizViewController: UIViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
+        configureDropDownView()
         fetchFromDefaults()
         configureCongrats()
         finalView.isHidden = true
-        resetButton.isHidden = true
         view.addSubview(scrollview)
         createNewView()
         //shadow(view: backButton)
@@ -508,12 +512,12 @@ class QuizViewController: UIViewController {
         blurEffect.isHidden = true
         self.view.bringSubviewToFront(blurEffect)
         dropDownView.backgroundColor = .clear
+        resetButton.isHidden = true
         tabBarController?.tabBar.isHidden = true
         configureButtons()
         startTime = currentTime()        
         //stackView.isHidden = true
         pulsatingConfig()
-        
         self.view.isUserInteractionEnabled = true
         //self.view.addGestureRecognizer(resetTimer)
         dropDownView.layer.zPosition = .greatestFiniteMagnitude
@@ -558,16 +562,18 @@ class QuizViewController: UIViewController {
     }
     
     @IBAction func handlePan(_ recognizer: UIPanGestureRecognizer) {
-        dropDownView.backgroundColor = .white
+        dropDownView.backgroundColor = #colorLiteral(red: 0.8284095885, green: 0.9218856541, blue: 1, alpha: 1)
+        resetButton.isHidden = false
         guard let recognizerView = recognizer.view else {
             return
             
         }
         if recognizer.state == .ended {
-            if Int(heightConstraint.constant) > half {
+            if heightConstraint.constant > half! {
                 print("less")
+                resetButton.isHidden = true
                 UIView.animate(withDuration: 1, delay: 0, usingSpringWithDamping: 1, initialSpringVelocity: 5, options: [], animations: {
-                    self.heightConstraint.constant = CGFloat(self.top+60)
+                    self.heightConstraint.constant = CGFloat(self.view.frame.height)
                 }) { (complete) in
                     
                 }
@@ -575,7 +581,7 @@ class QuizViewController: UIViewController {
             else {
                 print("greater")
                 UIView.animate(withDuration: 1, delay: 0, usingSpringWithDamping: 1, initialSpringVelocity: 5, options: [], animations: {
-                    self.heightConstraint.constant = CGFloat(self.bottom)
+                    self.heightConstraint.constant = self.bottom!
                 }) { (complete) in
                     self.dropDownView.smooth(count: 1, for: 0.2, withTranslation: 2)
                 }
@@ -583,7 +589,7 @@ class QuizViewController: UIViewController {
         }
         let translation = recognizer.translation(in: view)
         
-        if heightConstraint.constant - translation.y > CGFloat(bottom) {
+        if heightConstraint.constant - translation.y > bottom! {
             heightConstraint.constant -= translation.y
             
             

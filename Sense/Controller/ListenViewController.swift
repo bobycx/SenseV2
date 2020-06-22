@@ -13,12 +13,12 @@ class ListenViewController: UIViewController {
     
     let animationView = AnimationView()
     
-    let top = 764
-    let bottom = 700
-
-    lazy var half:Int = {
-        return self.top - ((self.top - self.bottom)/10)
-    }()
+    var top : CGFloat?
+    var bottom : CGFloat?
+    var half : CGFloat?
+    //lazy var half:Int = {
+      //  return self.top - ((self.top - self.bottom)/10)
+    //}()
     
     @IBOutlet var heightConstraint: NSLayoutConstraint!
     @IBOutlet weak var dropDownView: UIView!
@@ -26,7 +26,9 @@ class ListenViewController: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         print("hi")
-        
+        top = view.frame.height
+        bottom = top!-100
+        half = top! - ((top! - bottom!)/10)
         dropDownView.backgroundColor = .clear
     }
     
@@ -37,10 +39,10 @@ class ListenViewController: UIViewController {
             
         }
         if recognizer.state == .ended {
-            if Int(heightConstraint.constant) > half {
+            if heightConstraint.constant > half! {
                 print("less")
                 UIView.animate(withDuration: 1, delay: 0, usingSpringWithDamping: 1, initialSpringVelocity: 5, options: [], animations: {
-                    self.heightConstraint.constant = CGFloat(self.top+60)
+                    self.heightConstraint.constant = CGFloat(self.view.frame.height)
                 }) { (complete) in
                     
                 }
@@ -48,7 +50,7 @@ class ListenViewController: UIViewController {
             else {
                 print("greater")
                 UIView.animate(withDuration: 1, delay: 0, usingSpringWithDamping: 1, initialSpringVelocity: 5, options: [], animations: {
-                    self.heightConstraint.constant = CGFloat(self.bottom)
+                    self.heightConstraint.constant = self.bottom!
                 }) { (complete) in
                     self.dropDownView.smooth(count: 1, for: 0.2, withTranslation: 2)
                 }
@@ -56,7 +58,7 @@ class ListenViewController: UIViewController {
         }
         let translation = recognizer.translation(in: view)
         
-        if heightConstraint.constant - translation.y > CGFloat(bottom) {
+        if heightConstraint.constant - translation.y > bottom! {
             heightConstraint.constant -= translation.y
             
             
