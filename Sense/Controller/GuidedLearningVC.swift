@@ -11,6 +11,7 @@
 
 import UIKit
 import ChameleonFramework
+import Lottie
 
 class GuidedLearningVC: UIViewController {
     
@@ -28,6 +29,8 @@ class GuidedLearningVC: UIViewController {
     var latestYCor: CGFloat = 0
     var spacing: CGFloat = 20
     var timesOffsetChanged: CGFloat = 0
+    
+    let pulsatingView = AnimationView()
     
     var snap : UISnapBehavior!
     var animator : UIDynamicAnimator!
@@ -62,14 +65,27 @@ class GuidedLearningVC: UIViewController {
         print(cellLevel)
         print(level)
         let str_result = String(Int(currentView!.firstLabel!.text!)! * Int(currentView!.secondLabel!.text!)!);
-        
+        pulsatingView.removeFromSuperview()
         currentView!.ansButton.setTitle(str_result, for: .normal);
         currentView!.ansButton.isEnabled = false
         currentView!.ansButton.titleLabel?.textColor = #colorLiteral(red: 0, green: 0, blue: 0, alpha: 1)
         
+        sender.transform = CGAffineTransform(scaleX: 0.6, y: 0.6)
+        
+        UIView.animate(withDuration: 2.0,
+                       delay: 0,
+                       usingSpringWithDamping: CGFloat(0.20),
+                       initialSpringVelocity: CGFloat(6.0),
+                       options: UIView.AnimationOptions.allowUserInteraction,
+                       animations: {
+                        sender.transform = CGAffineTransform.identity
+        },
+                       completion: { Void in()  }
+        )
+        
         pulsatingLayerConfig(parentView: currentView!.ansButton)
         
-        DispatchQueue.main.asyncAfter(deadline: .now() + 0) {
+        DispatchQueue.main.asyncAfter(deadline: .now() + 5) {
             // wait for user to dismiss: tap any open area
             print("hi")
             // Animating....
@@ -121,6 +137,19 @@ class GuidedLearningVC: UIViewController {
   
     }
     
+    func pulsatingConfig() {
+
+         pulsatingView.frame = CGRect(x: ((currentView?.ansButton.frame.origin.x)!), y: ((currentView?.ansButton.frame.origin.y)!), width: 100, height: 100)
+         pulsatingView.center = (currentView?.ansButton.center)!
+         pulsatingView.animation = Animation.named("Pulsating")
+         pulsatingView.loopMode = .loop
+         pulsatingView.contentMode = .scaleAspectFit
+         pulsatingView.play(fromProgress: 0, toProgress: 0.3)
+         currentView!.addSubview(pulsatingView)
+         currentView?.sendSubviewToBack(pulsatingView)
+ 
+    }
+    
     func createNewView() {
         
         if (Int(self.view.frame.height - latestYCor)) < 90 && timesOffsetChanged != 1 {
@@ -151,7 +180,7 @@ class GuidedLearningVC: UIViewController {
         
         // update timely
         self.view.layoutIfNeeded()
-        
+        pulsatingConfig()
 
     }
     @IBAction func proceedButtonPressed(_ sender: UIButton) {

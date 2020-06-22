@@ -19,6 +19,11 @@
 		C67D9915236BA63E000B638F /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = C67D9913236BA63E000B638F /* LaunchScreen.storyboard */; };
 		C687DC4224967F74004C32A3 /* Pulsating.json in Resources */ = {isa = PBXBuildFile; fileRef = C687DC4124967F74004C32A3 /* Pulsating.json */; };
 		C687DC44249685BC004C32A3 /* 24455-summer-buddy.json in Resources */ = {isa = PBXBuildFile; fileRef = C687DC43249685BC004C32A3 /* 24455-summer-buddy.json */; };
+		C687DC482496C18E004C32A3 /* large_pulsating.json in Resources */ = {isa = PBXBuildFile; fileRef = C687DC472496C18E004C32A3 /* large_pulsating.json */; };
+		C687DC4A2496CDB8004C32A3 /* red_pulsating.json in Resources */ = {isa = PBXBuildFile; fileRef = C687DC492496CDB8004C32A3 /* red_pulsating.json */; };
+		C687DC5024982654004C32A3 /* lighting_changer.json in Resources */ = {isa = PBXBuildFile; fileRef = C687DC4F24982654004C32A3 /* lighting_changer.json */; };
+		C687DC58249AA281004C32A3 /* globe_rotation.json in Resources */ = {isa = PBXBuildFile; fileRef = C687DC57249AA281004C32A3 /* globe_rotation.json */; };
+		C69454DD249D0721000E9D6F /* PanView.swift in Sources */ = {isa = PBXBuildFile; fileRef = C69454DC249D0721000E9D6F /* PanView.swift */; };
 		C694BAF32422FB420037EEC0 /* ChooseLearningModeVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = C694BAF22422FB420037EEC0 /* ChooseLearningModeVC.swift */; };
 		C694BAF62423C37F0037EEC0 /* ScaleSegue.swift in Sources */ = {isa = PBXBuildFile; fileRef = C694BAF52423C37F0037EEC0 /* ScaleSegue.swift */; };
 		C694BAF82423F7160037EEC0 /* GuidedLearningVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = C694BAF72423F7150037EEC0 /* GuidedLearningVC.swift */; };
@@ -45,6 +50,11 @@
 		C67D9916236BA63E000B638F /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		C687DC4124967F74004C32A3 /* Pulsating.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; path = Pulsating.json; sourceTree = "<group>"; };
 		C687DC43249685BC004C32A3 /* 24455-summer-buddy.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; path = "24455-summer-buddy.json"; sourceTree = "<group>"; };
+		C687DC472496C18E004C32A3 /* large_pulsating.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; path = large_pulsating.json; sourceTree = "<group>"; };
+		C687DC492496CDB8004C32A3 /* red_pulsating.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; path = red_pulsating.json; sourceTree = "<group>"; };
+		C687DC4F24982654004C32A3 /* lighting_changer.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; path = lighting_changer.json; sourceTree = "<group>"; };
+		C687DC57249AA281004C32A3 /* globe_rotation.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; path = globe_rotation.json; sourceTree = "<group>"; };
+		C69454DC249D0721000E9D6F /* PanView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PanView.swift; sourceTree = "<group>"; };
 		C694BAF22422FB420037EEC0 /* ChooseLearningModeVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ChooseLearningModeVC.swift; sourceTree = "<group>"; };
 		C694BAF52423C37F0037EEC0 /* ScaleSegue.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ScaleSegue.swift; sourceTree = "<group>"; };
 		C694BAF72423F7150037EEC0 /* GuidedLearningVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GuidedLearningVC.swift; sourceTree = "<group>"; };
@@ -109,6 +119,10 @@
 		C61F60FC2384B0E1007F5035 /* Controller */ = {
 			isa = PBXGroup;
 			children = (
+				C687DC4F24982654004C32A3 /* lighting_changer.json */,
+				C687DC57249AA281004C32A3 /* globe_rotation.json */,
+				C687DC492496CDB8004C32A3 /* red_pulsating.json */,
+				C687DC472496C18E004C32A3 /* large_pulsating.json */,
 				C687DC43249685BC004C32A3 /* 24455-summer-buddy.json */,
 				C687DC4124967F74004C32A3 /* Pulsating.json */,
 				C67D990A236BA63C000B638F /* AppDelegate.swift */,
@@ -158,6 +172,7 @@
 		C687DC4024967F58004C32A3 /* Animations */ = {
 			isa = PBXGroup;
 			children = (
+				C69454DC249D0721000E9D6F /* PanView.swift */,
 			);
 			path = Animations;
 			sourceTree = "<group>";
@@ -238,12 +253,16 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				C687DC4A2496CDB8004C32A3 /* red_pulsating.json in Resources */,
 				C67D9915236BA63E000B638F /* LaunchScreen.storyboard in Resources */,
 				C687DC44249685BC004C32A3 /* 24455-summer-buddy.json in Resources */,
 				C687DC4224967F74004C32A3 /* Pulsating.json in Resources */,
 				C61F61002384B12E007F5035 /* QuestionCell.xib in Resources */,
+				C687DC58249AA281004C32A3 /* globe_rotation.json in Resources */,
 				C67D9912236BA63E000B638F /* Assets.xcassets in Resources */,
+				C687DC482496C18E004C32A3 /* large_pulsating.json in Resources */,
 				C694BB0E24246D9F0037EEC0 /* CellView.xib in Resources */,
+				C687DC5024982654004C32A3 /* lighting_changer.json in Resources */,
 				C67D9910236BA63C000B638F /* Main.storyboard in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -304,6 +323,7 @@
 				C694BB1024246DF10037EEC0 /* CellView.swift in Sources */,
 				C61F60FF2384B12E007F5035 /* CustomQuestionCell.swift in Sources */,
 				C6B4471C23BD9C7500022C11 /* QuizViewController.swift in Sources */,
+				C69454DD249D0721000E9D6F /* PanView.swift in Sources */,
 				C694BAF82423F7160037EEC0 /* GuidedLearningVC.swift in Sources */,
 				C624099D242EAA4100D41FFC /* PulseAnimation.swift in Sources */,
 				C694BAF32422FB420037EEC0 /* ChooseLearningModeVC.swift in Sources */,

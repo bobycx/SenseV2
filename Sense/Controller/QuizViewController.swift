@@ -11,9 +11,15 @@ import Hero
 import ChameleonFramework
 import Lottie
 
-
-
 class QuizViewController: UIViewController {
+    
+    
+    let top = 764
+    let bottom = 700
+    
+    lazy var half:Int = {
+        return self.top - ((self.top - self.bottom)/10)
+    }()
     
     @IBOutlet weak var congratsView: UIView!
     @IBOutlet weak var reviewButton: UIButton!
@@ -24,12 +30,17 @@ class QuizViewController: UIViewController {
     @IBOutlet weak var stackView: UIView!
     
     @IBOutlet weak var finalView: UIView!
+    @IBOutlet weak var resetButton: UIButton!
     
     @IBOutlet weak var timeLabel: UILabel!
     @IBOutlet weak var correctLabel: UILabel!
     @IBOutlet weak var highScoreLabel: UILabel!
+    @IBOutlet weak var heightConstraint: NSLayoutConstraint!
+    @IBOutlet weak var dropDownView: UIView!
     
     let pulsatingView = AnimationView()
+    let largePulsatingView = AnimationView()
+    let redPulsatingView = AnimationView()
     
     @IBOutlet var buttons: [UIButton]!
     
@@ -61,6 +72,7 @@ class QuizViewController: UIViewController {
     var latestYCor: CGFloat = 0
     var spacing: CGFloat = 20
     var timesOffsetChanged: CGFloat = 0
+    var isWaiting = false
     
     var snap : UISnapBehavior!
     var animator : UIDynamicAnimator!
@@ -70,7 +82,7 @@ class QuizViewController: UIViewController {
     
     var pulsatingLayer: CAShapeLayer!
     
-
+    var timer = Timer()
     
     lazy var scrollview: UIScrollView = {
         let view = UIScrollView(frame: .zero)
@@ -90,9 +102,18 @@ class QuizViewController: UIViewController {
         
         
         print("yo mama")
+        if isWaiting == false {
+            largePulsatingView.isHidden = false
+            largePulsatingView.play(fromProgress: 0, toProgress: 0.3) { (finished) in
+                self.largePulsatingView.isHidden = true
+            }
+        }
         
         
-        
+    }
+    @IBAction func resetPressed(_ sender: UIButton) {
+        print("bruh why is this gay")
+        viewDidLoad()
     }
     
     func createNewView() {
@@ -130,7 +151,7 @@ class QuizViewController: UIViewController {
             self.stackView.alpha = 1
         })
         
-        
+        pulsatingConfig()
     }
     
 
@@ -147,6 +168,8 @@ class QuizViewController: UIViewController {
         if defaults.integer(forKey: "highScore") <= questionsCorrect {
             defaults.setValue(questionsCorrect, forKey: "highScore")
         }
+        resetButton.layer.cornerRadius = 25
+        
         endTime = currentTime() - startTime
         print(endTime)
         let displayLink = CADisplayLink(target: self, selector: #selector(updater))
@@ -158,10 +181,11 @@ class QuizViewController: UIViewController {
         highScoreLabel.text = "0"
         timeLabel.text = "0"
         print(questionsCorrect)
-        level = 0
-        cellLevel = 0
+        level = 1
+        cellLevel = 1
         
-        
+        resetButton.isHidden = false
+        resetButton.layer.zPosition = CGFloat(11)
     }
     
     @objc func updater() {
@@ -243,67 +267,23 @@ class QuizViewController: UIViewController {
         print(cellLevel)
         print(level)
         questionsCorrect += 1
-        let str_result = String(Int(currentView!.firstLabel!.text!)! * Int(currentView!.secondLabel!.text!)!);
+        timer = Timer.scheduledTimer(timeInterval: 5, target: self, selector: #selector(doStuff), userInfo: nil, repeats: true)
+        currentView?.ansButton.transform = CGAffineTransform(scaleX: 0.6, y: 0.6)
         
-        currentView!.ansButton.setTitle(str_result, for: .normal);
-        currentView!.ansButton.isEnabled = false
-        currentView!.ansButton.titleLabel?.textColor = #colorLiteral(red: 0, green: 0, blue: 0, alpha: 1)
+        UIView.animate(withDuration: 2.0,
+                       delay: 0,
+                       usingSpringWithDamping: CGFloat(0.20),
+                       initialSpringVelocity: CGFloat(6.0),
+                       options: UIView.AnimationOptions.allowUserInteraction,
+                       animations: {
+                        self.currentView?.ansButton.transform = CGAffineTransform.identity
+        },
+                       completion: { Void in()  }
+        )
         
-        pulsatingLayerConfig(parentView: currentView!.ansButton)
         
+        isWaiting = true
         
-        DispatchQueue.main.asyncAfter(deadline: .now() + 0) {
-            // wait for user to dismiss: tap any open area
-            print("hi")
-            // Animating....
-            UIView.animate(withDuration: 0.5, animations: {
-                // Height
-                self.currentView!.frame.size.height = 70
-                // Center
-                self.currentView!.center = CGPoint(x: CGFloat(self.view.frame.width/2), y: CGFloat(CGFloat(self.cellLevel-self.level+1)*(self.spacing + (self.currentView!.frame.height))))
-                self.currentView!.firstLabelCenter.constant += 80
-                self.currentView!.secondLabelCenter.constant += 80
-                self.currentView!.newplyCenter.constant += 80
-                self.currentView!.equalSign.frame.origin.y += 80
-                self.currentView!.ansButton.frame.origin.y += 80
-                
-                // update layout right now if any changes
-                self.view.layoutIfNeeded() // !!! important !!!
-            }, completion: { finished in
-                UIView.animate(withDuration: 0.5, animations: { () -> Void in
-                    //self.currentView!.center = CGPoint(x: CGFloat(self.view.frame.width/2), y: CGFloat(CGFloat(self.cellLevel)*(self.spacing + (self.currentView!.frame.height))))
-                    UIView.performWithoutAnimation {
-                        //self.currentView!.center.y = c_y //CGPoint(x: c_x, y: c_y )
-                        
-                    }
-                    
-                }, completion: { finished in
-                    
-                    self.latestYCor = CGFloat(CGFloat(self.cellLevel)*(self.spacing + (self.currentView!.frame.height)))
-                    self.cellLevel += 1
-                    print(self.latestYCor)
-                    
-                    
-                    
-                    // CellView doesnot belong to scrollview at the beginning
-                    self.currentView!.removeFromSuperview()
-                    self.scrollview.addSubview(self.currentView!)
-                    
-                    
-                    if self.cellLevel > 9 {
-                        print("cellLevel: \(self.cellLevel), level: \(self.level)")
-                        self.enterNewLevel()
-                        //source
-                    }
-                    else {
-                        //temp commented
-                        
-                        self.createNewView()
-                    }
-                })
-                
-            })
-        }
     }
     
     func configureButtons() {
@@ -330,6 +310,75 @@ class QuizViewController: UIViewController {
         }
     }
     
+    override func touchesEnded(_ touches: Set<UITouch>, with event: UIEvent?) {
+        print("touch ended")
+        if isWaiting == true {
+            isWaiting = false
+            timer.invalidate()
+            pulsatingView.removeFromSuperview()
+            let str_result = String(Int(currentView!.firstLabel!.text!)! * Int(currentView!.secondLabel!.text!)!);
+            
+            currentView!.ansButton.setTitle(str_result, for: .normal);
+            currentView!.ansButton.isEnabled = false
+            currentView!.ansButton.titleLabel?.textColor = #colorLiteral(red: 0, green: 0, blue: 0, alpha: 1)
+            
+            pulsatingLayerConfig(parentView: currentView!.ansButton)
+            DispatchQueue.main.asyncAfter(deadline: .now() + 0) {
+                // wait for user to dismiss: tap any open area
+                print("hi")
+                // Animating....
+                UIView.animate(withDuration: 0.5, animations: {
+                    // Height
+                    self.currentView!.frame.size.height = 70
+                    // Center
+                    self.currentView!.center = CGPoint(x: CGFloat(self.view.frame.width/2), y: CGFloat(CGFloat(self.cellLevel-self.level+1)*(self.spacing + (self.currentView!.frame.height))))
+                    self.currentView!.firstLabelCenter.constant += 80
+                    self.currentView!.secondLabelCenter.constant += 80
+                    self.currentView!.newplyCenter.constant += 80
+                    self.currentView!.equalSign.frame.origin.y += 80
+                    self.currentView!.ansButton.frame.origin.y += 80
+                    
+                    // update layout right now if any changes
+                    self.view.layoutIfNeeded() // !!! important !!!
+                }, completion: { finished in
+                    UIView.animate(withDuration: 0.5, animations: { () -> Void in
+                        //self.currentView!.center = CGPoint(x: CGFloat(self.view.frame.width/2), y: CGFloat(CGFloat(self.cellLevel)*(self.spacing + (self.currentView!.frame.height))))
+                        UIView.performWithoutAnimation {
+                            //self.currentView!.center.y = c_y //CGPoint(x: c_x, y: c_y )
+                            
+                        }
+                        
+                    }, completion: { finished in
+                        
+                        self.latestYCor = CGFloat(CGFloat(self.cellLevel)*(self.spacing + (self.currentView!.frame.height)))
+                        self.cellLevel += 1
+                        print(self.latestYCor)
+                        
+                        
+                        
+                        // CellView doesnot belong to scrollview at the beginning
+                        self.currentView!.removeFromSuperview()
+                        self.scrollview.addSubview(self.currentView!)
+                        
+                        
+                        if self.cellLevel > 9 {
+                            print("cellLevel: \(self.cellLevel), level: \(self.level)")
+                            self.enterNewLevel()
+                            //source
+                        }
+                        else {
+                            //temp commented
+                            
+                            self.createNewView()
+                        }
+                    })
+                    
+                })
+            }
+        }
+        
+    }
+    
     @IBAction func changeLanguage(sender: AnyObject) {
         guard let button = sender as? UIButton else {
             return
@@ -348,7 +397,15 @@ class QuizViewController: UIViewController {
                     print("congratulations!")
                     stackView.alpha = 0
                     correctAnswer()
+                } else {
+                    redPulsatingView.isHidden = false
+                    currentView?.ansButton.shake(count: 2, for: 0.25, withTranslation: 5)
+                    redPulsatingView.play(fromProgress: 0, toProgress: 0.3) { (finished) in
+                        self.redPulsatingView.isHidden = true
+                    }
+                    print("wrong dumbo")
                 }
+            
             case 10:
                 if currentView?.ansButton.currentTitle?.last == "_" {
                     currentView!.ansButton.setTitle("__", for: .normal)
@@ -441,35 +498,97 @@ class QuizViewController: UIViewController {
         fetchFromDefaults()
         configureCongrats()
         finalView.isHidden = true
+        resetButton.isHidden = true
         view.addSubview(scrollview)
         createNewView()
-        print("CENTres: \(currentView?.ansButton.center)")
         //shadow(view: backButton)
         proceedButton.isHidden = true
         proceedButton.layer.cornerRadius = 25
         shadow(view: proceedButton)
         blurEffect.isHidden = true
         self.view.bringSubviewToFront(blurEffect)
-        
+        dropDownView.backgroundColor = .clear
         tabBarController?.tabBar.isHidden = true
         configureButtons()
         startTime = currentTime()        
         //stackView.isHidden = true
         pulsatingConfig()
-        print("CENTres: \(pulsatingView.center), \(currentView?.ansButton.center)")
+        
+        self.view.isUserInteractionEnabled = true
+        //self.view.addGestureRecognizer(resetTimer)
+        dropDownView.layer.zPosition = .greatestFiniteMagnitude
         print("GL")
+    }
+    @objc func doStuff() {
+        // perform any action you wish to
+        print("User inactive for more than 5 seconds .")
+        timer.invalidate()
     }
     
     func pulsatingConfig() {
+        /*
         pulsatingView.frame = CGRect(x: ((currentView?.ansButton.frame.origin.x)!), y: ((currentView?.ansButton.frame.origin.y)!), width: 100, height: 100)
         pulsatingView.center = (currentView?.ansButton.center)!
         pulsatingView.animation = Animation.named("Pulsating")
         pulsatingView.loopMode = .loop
         pulsatingView.contentMode = .scaleAspectFit
-        pulsatingView.play()
-        view.addSubview(pulsatingView)
-        pulsatingView.layer.zPosition = 11
+        pulsatingView.play(fromProgress: 0, toProgress: 0.3)
+        currentView!.addSubview(pulsatingView)
+        currentView?.sendSubviewToBack(pulsatingView)
+ */
         
+        redPulsatingView.frame = CGRect(x: ((currentView?.ansButton.frame.origin.x)!), y: ((currentView?.ansButton.frame.origin.y)!), width: 100, height: 100)
+        redPulsatingView.center = (currentView?.ansButton.center)!
+        redPulsatingView.animation = Animation.named("red_pulsating")
+        redPulsatingView.loopMode = .playOnce
+        redPulsatingView.contentMode = .scaleAspectFit
+        currentView!.addSubview(redPulsatingView)
+        currentView?.sendSubviewToBack(redPulsatingView)
+        redPulsatingView.isHidden = true
+        
+        largePulsatingView.frame = CGRect(x: stackView.frame.origin.x, y: stackView.frame.origin.y, width: 370, height: 400)
+        largePulsatingView.center = stackView.center
+        largePulsatingView.animation = Animation.named("large_pulsating")
+        largePulsatingView.loopMode = .playOnce
+        largePulsatingView.contentMode = .scaleAspectFit
+        largePulsatingView.play(fromProgress: 0, toProgress: 0.3)
+        view.addSubview(largePulsatingView)
+        
+        largePulsatingView.isHidden = true
+    }
+    
+    @IBAction func handlePan(_ recognizer: UIPanGestureRecognizer) {
+        dropDownView.backgroundColor = .white
+        guard let recognizerView = recognizer.view else {
+            return
+            
+        }
+        if recognizer.state == .ended {
+            if Int(heightConstraint.constant) > half {
+                print("less")
+                UIView.animate(withDuration: 1, delay: 0, usingSpringWithDamping: 1, initialSpringVelocity: 5, options: [], animations: {
+                    self.heightConstraint.constant = CGFloat(self.top+60)
+                }) { (complete) in
+                    
+                }
+            }
+            else {
+                print("greater")
+                UIView.animate(withDuration: 1, delay: 0, usingSpringWithDamping: 1, initialSpringVelocity: 5, options: [], animations: {
+                    self.heightConstraint.constant = CGFloat(self.bottom)
+                }) { (complete) in
+                    self.dropDownView.smooth(count: 1, for: 0.2, withTranslation: 2)
+                }
+            }
+        }
+        let translation = recognizer.translation(in: view)
+        
+        if heightConstraint.constant - translation.y > CGFloat(bottom) {
+            heightConstraint.constant -= translation.y
+            
+            
+        }
+        recognizer.setTranslation(.zero, in: view)
     }
     
     func fetchFromDefaults() {
@@ -571,5 +690,19 @@ class QuizViewController: UIViewController {
     }
     override var prefersStatusBarHidden: Bool {
         return true
+    }
+}
+
+public extension UIButton {
+    
+    func shake(count : Float = 4,for duration : TimeInterval = 0.5,withTranslation translation : Float = 5) {
+        
+        let animation = CAKeyframeAnimation(keyPath: "transform.translation.x")
+        animation.timingFunction = CAMediaTimingFunction(name: CAMediaTimingFunctionName.linear)
+        animation.repeatCount = count
+        animation.duration = duration/TimeInterval(animation.repeatCount)
+        animation.autoreverses = true
+        animation.values = [translation, -translation]
+        layer.add(animation, forKey: "shake")
     }
 }
