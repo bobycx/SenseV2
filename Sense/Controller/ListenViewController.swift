@@ -7,67 +7,118 @@
 //
 
 import UIKit
-import Lottie
+import DrawerView
+import AVFoundation
+var audioPlayer: AVAudioPlayer!
+
 
 class ListenViewController: UIViewController {
     
-    let animationView = AnimationView()
+    @IBOutlet var drawerView: DrawerView!
     
-    var top : CGFloat?
-    var bottom : CGFloat?
-    var half : CGFloat?
-    //lazy var half:Int = {
-      //  return self.top - ((self.top - self.bottom)/10)
-    //}()
+    @IBOutlet weak var firstLabel: UILabel!
+    @IBOutlet weak var secondLabel: UILabel!
+    @IBOutlet weak var ansLabel: UILabel!
+    @IBOutlet weak var slider: UISlider!
     
-    @IBOutlet var heightConstraint: NSLayoutConstraint!
-    @IBOutlet weak var dropDownView: UIView!
+    var level: Int = 1
+    var cellLevel: Int = 1
+    
+    let customFont = UIFont(name: "DK Cool Crayon", size: UIFont.labelFontSize)
+    
+    @IBAction func onSlide(_ sender: UISlider) {
+        slider.value = roundf(slider.value)
+    }
+    
+    
+    @IBAction func playPressed(_ sender: UIButton) {
+
+           
+                
+                if cellLevel > 9 {
+                    level += 1
+                    cellLevel = level
+                }
+                if cellLevel > 9 {
+                    print("done")
+                    
+                }
+            firstLabel.text = level.asWord
+            secondLabel.text = cellLevel.asWord
+            ansLabel.text = (level*cellLevel).asWord
+                cellLevel += 1
+            UIView.animate(withDuration: 0.2, delay: 0, usingSpringWithDamping: 1, initialSpringVelocity: 5, options: [], animations: {
+                    self.firstLabel.frame = CGRect(x: self.firstLabel.frame.origin.x, y: self.firstLabel.frame.origin.y - 20, width: self.firstLabel.frame.width, height: self.firstLabel.frame.height)
+                    
+                }) { (complete) in
+                    UIView.animate(withDuration: 1, delay: 0, usingSpringWithDamping: 1, initialSpringVelocity: 5, options: [], animations: {
+                        self.firstLabel.frame = CGRect(x: self.firstLabel.frame.origin.x, y: self.firstLabel.frame.origin.y + 20, width: self.firstLabel.frame.width, height: self.firstLabel.frame.height)
+                        
+                    })
+                }
+            DispatchQueue.main.asyncAfter(deadline: .now() + 0.2) {
+                UIView.animate(withDuration: 0.2, delay: 0, usingSpringWithDamping: 1, initialSpringVelocity: 5, options: [], animations: {
+                    self.secondLabel.frame = CGRect(x: self.secondLabel.frame.origin.x, y: self.secondLabel.frame.origin.y - 20, width: self.secondLabel.frame.width, height: self.secondLabel.frame.height)
+                    
+                }) { (complete) in
+                    UIView.animate(withDuration: 1, delay: 0, usingSpringWithDamping: 1, initialSpringVelocity: 5, options: [], animations: {
+                        self.secondLabel.frame = CGRect(x: self.secondLabel.frame.origin.x, y: self.secondLabel.frame.origin.y + 20, width: self.secondLabel.frame.width, height: self.secondLabel.frame.height)
+                        
+                    })
+                    DispatchQueue.main.asyncAfter(deadline: .now() + 0.3) {
+                        
+                        UIView.animate(withDuration: 0.2, delay: 0, usingSpringWithDamping: 1, initialSpringVelocity: 5, options: [], animations: {
+                            self.ansLabel.frame = CGRect(x: self.ansLabel.frame.origin.x, y: self.ansLabel.frame.origin.y - 20, width: self.ansLabel.frame.width, height: self.ansLabel.frame.height)
+                            
+                        }) { (complete) in
+                            UIView.animate(withDuration: 1, delay: 0, usingSpringWithDamping: 1, initialSpringVelocity: 5, options: [], animations: {
+                                self.ansLabel.frame = CGRect(x: self.ansLabel.frame.origin.x, y: self.ansLabel.frame.origin.y + 20, width: self.ansLabel.frame.width, height: self.ansLabel.frame.height)
+                                
+                            })
+                        }
+                    }
+                }
+            }
+            
+
+            
+        
+    }
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        print("hi")
-        top = view.frame.height
-        bottom = top!-100
-        half = top! - ((top! - bottom!)/10)
-        dropDownView.backgroundColor = .clear
+        /*
+        firstLabel.font = UIFontMetrics.default.scaledFont(for: customFont!)
+        secondLabel.font = UIFontMetrics.default.scaledFont(for: customFont!)
+        firstLabel.adjustsFontForContentSizeCategory = true
+        secondLabel.adjustsFontForContentSizeCategory = true
+ */
+        for family in UIFont.familyNames.sorted() {
+            let names = UIFont.fontNames(forFamilyName: family)
+            print("Family: \(family) Font names: \(names)")
+        }
+        drawerView.shadowOpacity = 0
+        drawerView.borderColor = .clear
+        drawerView.snapPositions = [.collapsed, .partiallyOpen]
+        /*
+        let url = Bundle.main.url(forResource: "Sense", withExtension: "mp3")!
+        do {
+            audioPlayer = try AVAudioPlayer(contentsOf: url)
+            guard let player = audioPlayer else { return }
+            
+            player.prepareToPlay()
+            player.play()
+        } catch let error {
+            print(error.localizedDescription)
+        }
+        
+        */
     }
     
-    @IBAction func handlePan(_ recognizer: UIPanGestureRecognizer) {
-        dropDownView.backgroundColor = .white
-        guard let recognizerView = recognizer.view else {
-            return
-            
-        }
-        if recognizer.state == .ended {
-            if heightConstraint.constant > half! {
-                print("less")
-                UIView.animate(withDuration: 1, delay: 0, usingSpringWithDamping: 1, initialSpringVelocity: 5, options: [], animations: {
-                    self.heightConstraint.constant = CGFloat(self.view.frame.height)
-                }) { (complete) in
-                    
-                }
-            }
-            else {
-                print("greater")
-                UIView.animate(withDuration: 1, delay: 0, usingSpringWithDamping: 1, initialSpringVelocity: 5, options: [], animations: {
-                    self.heightConstraint.constant = self.bottom!
-                }) { (complete) in
-                    self.dropDownView.smooth(count: 1, for: 0.2, withTranslation: 2)
-                }
-            }
-        }
-        let translation = recognizer.translation(in: view)
-        
-        if heightConstraint.constant - translation.y > bottom! {
-            heightConstraint.constant -= translation.y
-            
-            
-        }
-        recognizer.setTranslation(.zero, in: view)
-    }
-
     
 }
+
+
 
 extension UIView {
     
@@ -81,4 +132,13 @@ extension UIView {
         animation.values = [translation, -translation]
         layer.add(animation, forKey: "shake")
     }
+}
+
+public extension Int {
+  public var asWord: String {
+    let numberValue = NSNumber(value: self)
+    var formatter = NumberFormatter()
+    formatter.numberStyle = .spellOut
+    return formatter.string(from: numberValue)!
+  }
 }

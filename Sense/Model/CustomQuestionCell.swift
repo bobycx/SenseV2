@@ -23,10 +23,10 @@ class CustomQuestionCell: UITableViewCell {
         //var colors : Dictionary<UIColor,UIColor> = [UIColor.flatYellow: UIColor.flatYellowDark, UIColor.flatPowderBlue: UIColor.flatPowderBlueDark]
         
         questionView.layer.cornerRadius = 30
-        questionView.backgroundColor = UIColor(gradientStyle:UIGradientStyle.leftToRight, withFrame:questionView.frame, andColors:[.flatPowderBlue, .flatPowderBlueDark])
+        questionView.backgroundColor = UIColor(gradientStyle:UIGradientStyle.leftToRight, withFrame:questionView.frame, andColors:[.flatPowderBlue(), .flatPowderBlueDark()])
         
         
-        questionView.layer.shadowColor = UIColor.flatPowderBlueDark.cgColor
+        questionView.layer.shadowColor = UIColor.flatPowderBlueDark().cgColor
         questionView.layer.shadowOffset = CGSize(width: 1, height: 1)
         questionView.layer.shadowOpacity = 0.7
         questionView.layer.shadowRadius = 4.0

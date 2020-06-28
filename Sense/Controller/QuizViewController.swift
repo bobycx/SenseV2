@@ -10,6 +10,8 @@ import UIKit
 import Hero
 import ChameleonFramework
 import Lottie
+import DrawerView
+import AVFoundation
 
 class QuizViewController: UIViewController {
     
@@ -17,8 +19,16 @@ class QuizViewController: UIViewController {
     var bottom : CGFloat?
     var half : CGFloat?
     
-
+    var seconds: Int = 0
+    var minutes: Int = 0
     
+    var audioPlayer = AVAudioPlayer()
+    
+    @IBOutlet var drawerView: DrawerView!
+    @IBOutlet weak var minuteCounter: UILabel!
+    @IBOutlet weak var secondCounter: UILabel!
+    
+    @IBOutlet weak var secondsTimeLabel: UILabel!
     @IBOutlet weak var congratsView: UIView!
     @IBOutlet weak var reviewButton: UIButton!
     @IBOutlet weak var nextButton: UIButton!
@@ -27,8 +37,11 @@ class QuizViewController: UIViewController {
     @IBOutlet weak var blurEffect: UIVisualEffectView!
     @IBOutlet weak var stackView: UIView!
     
+    @IBOutlet weak var littleSymbol: UILabel!
+    @IBOutlet weak var quizLabel: UILabel!
     @IBOutlet weak var finalView: UIView!
     @IBOutlet weak var resetButton: UIButton!
+    @IBOutlet weak var reloadButton: UIButton!
     
     @IBOutlet weak var timeLabel: UILabel!
     @IBOutlet weak var correctLabel: UILabel!
@@ -43,6 +56,8 @@ class QuizViewController: UIViewController {
     @IBOutlet var buttons: [UIButton]!
     
     let defaults = UserDefaults.standard
+    
+    var nTimer = Timer()
     
     var level: Int = 9{
         didSet{
@@ -59,18 +74,14 @@ class QuizViewController: UIViewController {
             defaults.setValue(questionsCorrect, forKey: "questionsCorrect")
         }
     }
-    
-    var startTime: Int = 0 {
-        didSet{
-            defaults.setValue(startTime, forKey: "startTime")
-        }
-    }
-    var endTime: Int = 0
+
     var currentView: CellView?
     var latestYCor: CGFloat = 0
     var spacing: CGFloat = 20
     var timesOffsetChanged: CGFloat = 0
     var isWaiting = false
+    
+    var isFirstClick = true
     
     var snap : UISnapBehavior!
     var animator : UIDynamicAnimator!
@@ -114,6 +125,11 @@ class QuizViewController: UIViewController {
         level = 1
         cellLevel = 1
     }
+    @IBAction func reloadPressed(_ sender: UIButton) {
+        //view.layoutIfNeeded()
+        //viewDidLoad()
+        
+    }
     
     func createNewView() {
         
@@ -151,6 +167,7 @@ class QuizViewController: UIViewController {
         })
         
         pulsatingConfig()
+        view.bringSubviewToFront(dropDownView)
     }
     
 
@@ -169,8 +186,6 @@ class QuizViewController: UIViewController {
         }
         resetButton.layer.cornerRadius = 25
         
-        endTime = currentTime() - startTime
-        print(endTime)
         let displayLink = CADisplayLink(target: self, selector: #selector(updater))
         displayLink.add(to: .main, forMode: .default)
         finalView.isHidden = false
@@ -178,13 +193,14 @@ class QuizViewController: UIViewController {
         stackView.isHidden = true
         correctLabel.text = "0"
         highScoreLabel.text = "0"
-        timeLabel.text = "0"
         print(questionsCorrect)
         level = 1
         cellLevel = 1
         
+        timer.invalidate()
         resetButton.isHidden = false
-        resetButton.layer.zPosition = CGFloat(11)
+        dropDownView.layer.zPosition = 30
+        // #add
     }
     
     @objc func updater() {
@@ -200,13 +216,13 @@ class QuizViewController: UIViewController {
             highScoreLabel.text = String(Int(highScoreLabel!.text!)! + 1)
         }
         
-        if Int(timeLabel.text!)! < endTime {
+        if Int(timeLabel.text!)! < Int(minuteCounter.text!)! {
             timeLabel.text = String(Int(timeLabel!.text!)! + 1)
         }
-        else if Int(timeLabel.text!)! == endTime {
-            endTime = 0
-            startTime = 0
+        if Int(secondsTimeLabel.text!)! < Int(secondCounter.text!)! {
+            secondsTimeLabel.text = String(Int(secondsTimeLabel!.text!)! + 1)
         }
+
         
     }
     
@@ -262,11 +278,54 @@ class QuizViewController: UIViewController {
         
     }
     
+    @objc func count() {
+        seconds += 1
+        if String(seconds).count < 2 {
+            secondCounter.text = "0\(seconds)"
+        }
+        else if seconds < 60 {
+            secondCounter.text = "\(seconds)"
+        }
+        else {
+            if seconds == 60 {
+                minutes += 1
+                seconds = 0
+            }
+            if String(minutes).count < 2 {
+                minuteCounter.text = "0\(minutes)"
+            }
+            else {
+                minuteCounter.text = "\(minutes)"
+            }
+            if String(seconds).count < 2 {
+                secondCounter.text = "0\(seconds%60)"
+            }
+            else if seconds < 60 {
+                secondCounter.text = "\(seconds%60)"
+            }
+        }
+        
+    }
+    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
+        if (segue.identifier == "reset2quiz") {
+            // Pass data to tabBarViewController
+            print("Segue: reset2quiz!")
+            let tabVC = segue.destination as! TabBarController
+            // Automatically select index = 2 to run
+            tabVC.selectedIndex = 2
+        }
+    }
+    
     func correctAnswer() {
+        if isFirstClick == true {
+            timer = Timer.scheduledTimer(timeInterval: 1, target: self, selector: #selector(count), userInfo: nil, repeats: true)
+            isFirstClick = false
+            tabBarController?.tabBar.isHidden = true
+        }
         print(cellLevel)
         print(level)
         questionsCorrect += 1
-        timer = Timer.scheduledTimer(timeInterval: 5, target: self, selector: #selector(doStuff), userInfo: nil, repeats: true)
+        nTimer = Timer.scheduledTimer(timeInterval: 5, target: self, selector: #selector(doStuff), userInfo: nil, repeats: true)
         currentView?.ansButton.transform = CGAffineTransform(scaleX: 0.6, y: 0.6)
         
         UIView.animate(withDuration: 2.0,
@@ -286,7 +345,17 @@ class QuizViewController: UIViewController {
     }
     
     func configureButtons() {
-        stackView.frame.origin.y += 150
+        //stackView.translatesAutoresizingMaskIntoConstraints = false
+        //stackView.centerYAnchor.constraint(equalTo: view.centerYAnchor).isActive = true
+        //stackView.centerXAnchor.constraint(equalTo: view.centerXAnchor).isActive = true
+        //stackView.widthAnchor.constraint(equalToConstant: 400)
+        view.bringSubviewToFront(stackView)
+        stackView.alpha = 1
+        //stackView.frame.origin.x = view.frame.width/2
+        
+        //stackView.frame.origin.y = (currentView?.frame.origin.y)! + 300
+        print("origin: \(stackView.center)")
+        print("size: \(stackView.frame)")
         for (i, button) in buttons.enumerated() {
             if button.tag != 11 && button.tag != 10 {
                 button.backgroundColor = #colorLiteral(red: 0.9568627477, green: 0.6588235497, blue: 0.5450980663, alpha: 1)
@@ -313,7 +382,7 @@ class QuizViewController: UIViewController {
         print("touch ended")
         if isWaiting == true {
             isWaiting = false
-            timer.invalidate()
+            nTimer.invalidate()
             pulsatingView.removeFromSuperview()
             let str_result = String(Int(currentView!.firstLabel!.text!)! * Int(currentView!.secondLabel!.text!)!);
             
@@ -468,7 +537,7 @@ class QuizViewController: UIViewController {
         top = view.frame.height
         bottom = top!-100
         half = top! - ((top! - bottom!)/10)
-        dropDownView.layer.cornerRadius = 30
+        dropDownView.layer.cornerRadius = 10
     }
     
     func shadow(view: UIView) {
@@ -513,20 +582,35 @@ class QuizViewController: UIViewController {
         self.view.bringSubviewToFront(blurEffect)
         dropDownView.backgroundColor = .clear
         resetButton.isHidden = true
-        tabBarController?.tabBar.isHidden = true
+        reloadButton.isHidden = true
         configureButtons()
-        startTime = currentTime()        
         //stackView.isHidden = true
         pulsatingConfig()
         self.view.isUserInteractionEnabled = true
         //self.view.addGestureRecognizer(resetTimer)
-        dropDownView.layer.zPosition = .greatestFiniteMagnitude
+        view.bringSubviewToFront(dropDownView)
+        drawerView.insetAdjustmentBehavior = .superviewSafeArea
+        drawerView.position = .open
+        littleSymbol.isHidden = true
+        secondCounter.isHidden = true
+        minuteCounter.isHidden = true
+        quizLabel.isHidden = true
+        /*
+        do {
+            audioPlayer = try AVAudioPlayer(contentsOf: URL.init(fileURLWithPath: Bundle.main.path(forResource: "Sense", ofType: "mp3")!))
+        }
+        catch {
+            print(error)
+        }
+        audioPlayer.prepareToPlay()
+        audioPlayer.play()
+ */
         print("GL")
     }
     @objc func doStuff() {
         // perform any action you wish to
         print("User inactive for more than 5 seconds .")
-        timer.invalidate()
+        nTimer.invalidate()
     }
     
     func pulsatingConfig() {
@@ -562,8 +646,13 @@ class QuizViewController: UIViewController {
     }
     
     @IBAction func handlePan(_ recognizer: UIPanGestureRecognizer) {
-        dropDownView.backgroundColor = #colorLiteral(red: 0.8284095885, green: 0.9218856541, blue: 1, alpha: 1)
+        dropDownView.backgroundColor = #colorLiteral(red: 0.4737529713, green: 0.4780024131, blue: 0.7423659581, alpha: 1)
         resetButton.isHidden = false
+        reloadButton.isHidden = false
+        littleSymbol.isHidden = false
+        secondCounter.isHidden = false
+        minuteCounter.isHidden = false
+        quizLabel.isHidden = false
         guard let recognizerView = recognizer.view else {
             return
             
@@ -572,6 +661,7 @@ class QuizViewController: UIViewController {
             if heightConstraint.constant > half! {
                 print("less")
                 resetButton.isHidden = true
+                reloadButton.isHidden = true
                 UIView.animate(withDuration: 1, delay: 0, usingSpringWithDamping: 1, initialSpringVelocity: 5, options: [], animations: {
                     self.heightConstraint.constant = CGFloat(self.view.frame.height)
                 }) { (complete) in
@@ -599,8 +689,8 @@ class QuizViewController: UIViewController {
     
     func fetchFromDefaults() {
         latestYCor = 0
-        level = 8
-        cellLevel = 8
+        level = 1
+        cellLevel = 1
         if let _ = defaults.integer(forKey: "highScore") as? Int {
             //
         } else {
@@ -626,7 +716,8 @@ class QuizViewController: UIViewController {
         print(timesOffsetChanged)
         
         //CellView.cellView.backgroundColor = .clear
-        let y = (self.view.frame.size.height / 2)*(timesOffsetChanged+1) - (timesOffsetChanged*spacing)
+        let sub = (timesOffsetChanged+1) - (timesOffsetChanged*spacing)
+        let y = (self.view.frame.size.height / 2)*sub
         
         
         CellView.center = CGPoint(x: self.view.frame.size.width  / 2, y: y)
@@ -648,10 +739,10 @@ class QuizViewController: UIViewController {
         CellView.ansButton.addTarget(self, action: #selector(GuidedLearningVC.revealAnswer(sender:)), for: .touchUpInside)
         
         CellView.layer.cornerRadius = 30
-        CellView.backgroundColor = UIColor(gradientStyle:UIGradientStyle.leftToRight, withFrame:CellView.frame, andColors:[.flatPowderBlue, .flatPowderBlueDark])
+        CellView.backgroundColor = UIColor(gradientStyle:UIGradientStyle.leftToRight, withFrame:CellView.frame, andColors:[.flatPowderBlue(), .flatPowderBlueDark()])
         
         
-        CellView.layer.shadowColor = UIColor.flatPowderBlueDark.cgColor
+        CellView.layer.shadowColor = UIColor.flatPowderBlueDark().cgColor
         CellView.layer.shadowOffset = CGSize(width: 1, height: 1)
         CellView.layer.shadowOpacity = 0.7
         CellView.layer.shadowRadius = 4.0

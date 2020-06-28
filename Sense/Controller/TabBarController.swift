@@ -7,7 +7,6 @@
 //
 
 import UIKit
-import VBRRollingPit
 
 class TabBarController: UITabBarController, UITabBarControllerDelegate {
 

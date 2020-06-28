@@ -12,6 +12,7 @@
 		C61F61002384B12E007F5035 /* QuestionCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = C61F60FE2384B12E007F5035 /* QuestionCell.xib */; };
 		C61F610223987B3D007F5035 /* TabBarController.swift in Sources */ = {isa = PBXBuildFile; fileRef = C61F610123987B3D007F5035 /* TabBarController.swift */; };
 		C624099D242EAA4100D41FFC /* PulseAnimation.swift in Sources */ = {isa = PBXBuildFile; fileRef = C624099C242EAA4100D41FFC /* PulseAnimation.swift */; };
+		C63CDF2824A45E0600A336BB /* Sense.mp3 in Resources */ = {isa = PBXBuildFile; fileRef = C63CDF2724A45E0500A336BB /* Sense.mp3 */; };
 		C67D990B236BA63C000B638F /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = C67D990A236BA63C000B638F /* AppDelegate.swift */; };
 		C67D990D236BA63C000B638F /* LearnViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = C67D990C236BA63C000B638F /* LearnViewController.swift */; };
 		C67D9910236BA63C000B638F /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = C67D990E236BA63C000B638F /* Main.storyboard */; };
@@ -41,6 +42,7 @@
 		C61F60FE2384B12E007F5035 /* QuestionCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = QuestionCell.xib; sourceTree = "<group>"; };
 		C61F610123987B3D007F5035 /* TabBarController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TabBarController.swift; sourceTree = "<group>"; };
 		C624099C242EAA4100D41FFC /* PulseAnimation.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PulseAnimation.swift; sourceTree = "<group>"; };
+		C63CDF2724A45E0500A336BB /* Sense.mp3 */ = {isa = PBXFileReference; lastKnownFileType = audio.mp3; path = Sense.mp3; sourceTree = "<group>"; };
 		C67D9907236BA63C000B638F /* Sense.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Sense.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		C67D990A236BA63C000B638F /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		C67D990C236BA63C000B638F /* LearnViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LearnViewController.swift; sourceTree = "<group>"; };
@@ -63,6 +65,7 @@
 		C69B16222492788A0044D972 /* global.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = global.swift; sourceTree = "<group>"; };
 		C6B4471B23BD9C7500022C11 /* QuizViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = QuizViewController.swift; sourceTree = "<group>"; };
 		C6B4471D23BD9CCF00022C11 /* ListenViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ListenViewController.swift; sourceTree = "<group>"; };
+		C6FD342724A91198000401BB /* DkCoolCrayon-xJyV.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "DkCoolCrayon-xJyV.ttf"; sourceTree = "<group>"; };
 		E56DCB2AC1907AABCA945F0F /* Pods_Sense.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_Sense.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 /* End PBXFileReference section */
 
@@ -119,6 +122,7 @@
 		C61F60FC2384B0E1007F5035 /* Controller */ = {
 			isa = PBXGroup;
 			children = (
+				C63CDF2724A45E0500A336BB /* Sense.mp3 */,
 				C687DC4F24982654004C32A3 /* lighting_changer.json */,
 				C687DC57249AA281004C32A3 /* globe_rotation.json */,
 				C687DC492496CDB8004C32A3 /* red_pulsating.json */,
@@ -134,6 +138,13 @@
 				C694BAF72423F7150037EEC0 /* GuidedLearningVC.swift */,
 			);
 			path = Controller;
+			sourceTree = "<group>";
+		};
+		C63CDF2624A45DD400A336BB /* Music */ = {
+			isa = PBXGroup;
+			children = (
+			);
+			path = Music;
 			sourceTree = "<group>";
 		};
 		C67D98FE236BA63B000B638F = {
@@ -157,6 +168,8 @@
 		C67D9909236BA63C000B638F /* Sense */ = {
 			isa = PBXGroup;
 			children = (
+				C6FD342624A91177000401BB /* Fonts */,
+				C63CDF2624A45DD400A336BB /* Music */,
 				C687DC4024967F58004C32A3 /* Animations */,
 				C69B16212492786B0044D972 /* Global Classes */,
 				C694BAF42423C34C0037EEC0 /* Custom Segues */,
@@ -191,6 +204,14 @@
 				C69B16222492788A0044D972 /* global.swift */,
 			);
 			path = "Global Classes";
+			sourceTree = "<group>";
+		};
+		C6FD342624A91177000401BB /* Fonts */ = {
+			isa = PBXGroup;
+			children = (
+				C6FD342724A91198000401BB /* DkCoolCrayon-xJyV.ttf */,
+			);
+			path = Fonts;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -258,6 +279,7 @@
 				C687DC44249685BC004C32A3 /* 24455-summer-buddy.json in Resources */,
 				C687DC4224967F74004C32A3 /* Pulsating.json in Resources */,
 				C61F61002384B12E007F5035 /* QuestionCell.xib in Resources */,
+				C63CDF2824A45E0600A336BB /* Sense.mp3 in Resources */,
 				C687DC58249AA281004C32A3 /* globe_rotation.json in Resources */,
 				C67D9912236BA63E000B638F /* Assets.xcassets in Resources */,
 				C687DC482496C18E004C32A3 /* large_pulsating.json in Resources */,
@@ -296,15 +318,15 @@
 			inputPaths = (
 				"${SRCROOT}/Pods/Target Support Files/Pods-Sense/Pods-Sense-frameworks.sh",
 				"${BUILT_PRODUCTS_DIR}/ChameleonFramework/ChameleonFramework.framework",
+				"${BUILT_PRODUCTS_DIR}/DrawerView/DrawerView.framework",
 				"${BUILT_PRODUCTS_DIR}/Hero/Hero.framework",
-				"${BUILT_PRODUCTS_DIR}/VBRRollingPit/VBRRollingPit.framework",
 				"${BUILT_PRODUCTS_DIR}/lottie-ios/Lottie.framework",
 			);
 			name = "[CP] Embed Pods Frameworks";
 			outputPaths = (
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/ChameleonFramework.framework",
+				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/DrawerView.framework",
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/Hero.framework",
-				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/VBRRollingPit.framework",
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/Lottie.framework",
 			);
 			runOnlyForDeploymentPostprocessing = 0;
