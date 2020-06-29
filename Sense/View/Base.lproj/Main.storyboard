@@ -100,12 +100,11 @@
                                     <action selector="proceedButtonPressed:" destination="B8y-g5-IiL" eventType="touchUpInside" id="NqJ-Up-qLN"/>
                                 </connections>
                             </button>
-                            <view contentMode="scaleToFill" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="IHj-Sq-2Cr">
+                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="IHj-Sq-2Cr">
                                 <rect key="frame" x="58" y="282" width="298" height="332"/>
-                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                 <subviews>
-                                    <stackView opaque="NO" contentMode="scaleToFill" fixedFrame="YES" axis="vertical" distribution="fillEqually" spacing="32" translatesAutoresizingMaskIntoConstraints="NO" id="QFr-8N-AoU">
-                                        <rect key="frame" x="64" y="57" width="170" height="216"/>
+                                    <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" distribution="fillEqually" spacing="32" translatesAutoresizingMaskIntoConstraints="NO" id="QFr-8N-AoU">
+                                        <rect key="frame" x="64" y="58" width="170" height="216"/>
                                         <subviews>
                                             <stackView opaque="NO" contentMode="scaleToFill" distribution="fillEqually" spacing="40" translatesAutoresizingMaskIntoConstraints="NO" id="ozz-OP-bvm" userLabel="Row 1">
                                                 <rect key="frame" x="0.0" y="0.0" width="170" height="30"/>
@@ -215,6 +214,12 @@
                                     </stackView>
                                 </subviews>
                                 <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                <constraints>
+                                    <constraint firstAttribute="width" constant="298" id="0H8-iA-fZ4"/>
+                                    <constraint firstItem="QFr-8N-AoU" firstAttribute="centerX" secondItem="IHj-Sq-2Cr" secondAttribute="centerX" id="O8A-87-yBT"/>
+                                    <constraint firstAttribute="height" constant="332" id="Zbe-NR-thB"/>
+                                    <constraint firstItem="QFr-8N-AoU" firstAttribute="centerY" secondItem="IHj-Sq-2Cr" secondAttribute="centerY" id="rWc-Ku-ukj"/>
+                                </constraints>
                             </view>
                             <view alpha="0.0" contentMode="scaleToFill" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="bIN-X9-doe" userLabel="finalView">
                                 <rect key="frame" x="0.0" y="0.0" width="414" height="813"/>
@@ -383,8 +388,10 @@
                         <constraints>
                             <constraint firstItem="J5V-fl-Uh6" firstAttribute="trailing" secondItem="QcK-ZO-mha" secondAttribute="trailing" id="1WA-nb-iLa" userLabel="trailing = Drop Down View.trailing"/>
                             <constraint firstAttribute="bottom" secondItem="J5V-fl-Uh6" secondAttribute="bottom" constant="847" id="2Lu-a0-BkB"/>
+                            <constraint firstItem="IHj-Sq-2Cr" firstAttribute="centerX" secondItem="QcK-ZO-mha" secondAttribute="centerX" id="7EG-o4-x9O"/>
                             <constraint firstItem="J5V-fl-Uh6" firstAttribute="top" secondItem="QcK-ZO-mha" secondAttribute="topMargin" constant="-44" id="DtG-Dt-w8X" userLabel="Drop Down View.top = topMargin - 44"/>
                             <constraint firstItem="J5V-fl-Uh6" firstAttribute="leading" secondItem="QcK-ZO-mha" secondAttribute="leading" id="Vd8-g8-cSg" userLabel="Drop Down View.leading = leading"/>
+                            <constraint firstItem="IHj-Sq-2Cr" firstAttribute="centerY" secondItem="QcK-ZO-mha" secondAttribute="centerY" id="bgw-1V-Eok"/>
                         </constraints>
                         <viewLayoutGuide key="safeArea" id="whW-bi-j3G"/>
                         <connections>
@@ -415,6 +422,7 @@
                         <outlet property="secondCounter" destination="Qyd-jF-ZnV" id="XGg-lk-DuZ"/>
                         <outlet property="secondsTimeLabel" destination="126-dD-Egj" id="gnN-Hm-ITK"/>
                         <outlet property="stackView" destination="IHj-Sq-2Cr" id="fiT-xO-vic"/>
+                        <outlet property="stackViewCenterY" destination="bgw-1V-Eok" id="YP2-YV-xWs"/>
                         <outlet property="timeLabel" destination="3Ct-n8-5xN" id="kPR-SJ-qmE"/>
                         <outletCollection property="buttons" destination="9ku-z3-0MS" collectionClass="NSMutableArray" id="tpu-rF-3gr"/>
                         <outletCollection property="buttons" destination="xJy-wd-oNS" collectionClass="NSMutableArray" id="zwk-o5-8Lq"/>
@@ -582,6 +590,7 @@
                         <outlet property="ansLabel" destination="T7s-sy-sWM" id="l2O-b5-Lfd"/>
                         <outlet property="drawerView" destination="gYo-DU-P8b" id="uss-Kn-A9a"/>
                         <outlet property="firstLabel" destination="5Ux-sm-ewa" id="Z90-MU-C5P"/>
+                        <outlet property="playButton" destination="9He-mq-cR9" id="hyX-3v-coI"/>
                         <outlet property="secondLabel" destination="Kgq-EW-vBs" id="Aci-TK-6lh"/>
                         <outlet property="slider" destination="JzM-Pz-eCP" id="uXD-zT-Urp"/>
                     </connections>
@@ -845,7 +854,7 @@
         </scene>
     </scenes>
     <inferredMetricsTieBreakers>
-        <segue reference="yKH-3z-zcu"/>
+        <segue reference="txe-n1-fy1"/>
     </inferredMetricsTieBreakers>
     <resources>
         <image name="Play" width="104" height="104"/>

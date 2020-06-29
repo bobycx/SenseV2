@@ -24,6 +24,7 @@ class QuizViewController: UIViewController {
     
     var audioPlayer = AVAudioPlayer()
     
+    @IBOutlet weak var stackViewCenterY: NSLayoutConstraint!
     @IBOutlet var drawerView: DrawerView!
     @IBOutlet weak var minuteCounter: UILabel!
     @IBOutlet weak var secondCounter: UILabel!
@@ -758,6 +759,7 @@ class QuizViewController: UIViewController {
         self.view.layoutIfNeeded()
         stackView.layer.zPosition = .greatestFiniteMagnitude
         stackView.isHidden = false
+        stackViewCenterY.constant = 80*2
         //cellViewConstraints(CellView: CellView)
         let ans_length: Int = String(Int(CellView.firstLabel!.text!)! * Int(CellView.secondLabel!.text!)!).count;
         if ans_length == 1 {
